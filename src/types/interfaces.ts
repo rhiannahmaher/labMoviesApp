@@ -3,6 +3,7 @@ export interface BaseMovieProps {
     budget: number;
     homepage: string | undefined;
     id: number;
+    genre_ids?: number[];
     imdb_id: string;
     original_language: string;
     overview: string;
@@ -46,3 +47,5 @@ export interface MoviePageProps {
   movie: MovieDetailsProps;
   images: MovieImage[];
 }
+
+export type FilterOption = "title" | "genre"; // Restricts filtering/filter option to either "title" or "genre". 
