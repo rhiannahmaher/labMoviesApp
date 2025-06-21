@@ -15,6 +15,13 @@ const styles = {
 const MovieListPage: React.FC= () => {
   const [movies, setMovies] = useState<BaseMovieProps[]>([]);
 
+  const addToFavourites = (movieId: number) => {
+    const updatedMovies = movies.map((m: BaseMovieProps) =>
+      m.id === movieId ? { ...m, favourite: true } : m
+    );
+    setMovies(updatedMovies);
+  };
+
   useEffect(() => {
     fetch(
       `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&page=1`
@@ -35,7 +42,7 @@ const MovieListPage: React.FC= () => {
         <Header title={"Home Page"} />
       </Grid>
       <Grid item container spacing={5}>
-        <MovieList movies={movies}></MovieList>
+        <MovieList movies={movies} selectFavourite={addToFavourites} />      
       </Grid>
     </Grid>
   );
