@@ -50,3 +50,7 @@ export interface MoviePageProps {
 }
 
 export type FilterOption = "title" | "genre"; // Restricts filtering/filter option to either "title" or "genre". 
+
+export interface MovieListPageTemplateProps extends BaseMovieListProps {
+  title: string;
+}
