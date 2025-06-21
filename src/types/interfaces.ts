@@ -21,9 +21,13 @@ export interface BaseMovieProps {
     movies: BaseMovieProps[];
   }
 
-  export interface MovieDetailsProps extends BaseMovieProps {
+  export interface MovieDetailsProps extends BaseMovieProps { // Inherits info from BaseMovieProps
     genres: {
       id: number;
+      name: string;
+    }[];
+    production_countries: {
+      iso_3166_1: string; // From sampleData.ts
       name: string;
     }[];
   }
