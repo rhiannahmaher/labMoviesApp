@@ -27,6 +27,7 @@ const MovieHeader: React.FC<MovieDetailsProps> = (movie) => {
 
   useEffect(() => {
     const storedFavourites = JSON.parse(localStorage.getItem("favourites") || "[]"); // When headerMovie component initially loads, it checks local storage for favourited movies.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const matched = storedFavourites.some((fav: any) => fav.id === movie.id); // Returns true or false.
     setDisplayFavourite(matched); // Updates displayFavourite state (true/false).
   }, [movie.id]);

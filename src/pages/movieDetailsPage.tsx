@@ -1,80 +1,35 @@
-// "/movies/:id" (parameterised root that uses Movie ID to retreive details from API.
-
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect}  from "react"; // replace existing react import
 import { useParams } from "react-router-dom";
-import MovieHeader from "../components/headerMovie/";
 import MovieDetails from "../components/movieDetails";
-import Grid from "@mui/material/Grid";
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
-import { MovieDetailsProps, MovieImage} from "../types/interfaces";// replace existing MoviePageProps import
-import { getMovie, getMovieImages } from "../api/tmdb-api";
+import { MovieDetailsProps} from "../types/interfaces";
+import { getMovie} from "../api/tmdb-api";
+import PageTemplate from "../components/templateMoviePage";
 
-const styles = {
-  imageListRoot: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-  },
-  gridListTile: { 
-    width: "100%",
-    height: "auto",
-  },
 
-};
-
-const MoviePage: React.FC= () => {
+const MovieDetailsPage: React.FC= () => {
   const { id } = useParams();
   const [movie, setMovie] = useState<MovieDetailsProps>();
-  const [images, setImages] = useState<MovieImage[]>([]);
 
-  useEffect(() => { // Replaced fetch command to separate HTTP fetching call.
+  useEffect(() => {
     getMovie(id ?? "").then((movie) => {
       setMovie(movie);
     });
   }, [id]);
 
-  useEffect(() => { // Replaced fetch command to separate HTTP fetching call.
-    getMovieImages(id ?? "").then((images) => {
-      setImages(images);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <>
+      {/* Conditional test that checks if API is ready to display data. */}
       {movie ? (
         <>
-          <MovieHeader {...movie} />
-          <Grid container spacing={5} style={{ padding: "15px" }}>
-            <Grid item xs={3}>
-              <div >
-                <ImageList sx={styles.imageListRoot} cols={1}>
-                  {images.map((image) => (
-                    <ImageListItem
-                      key={image.file_path}
-                      sx={styles.gridListTile}
-                      cols={1}
-                    >
-                     <img
-                        src={`https://image.tmdb.org/t/p/w500/${image.file_path}`}
-                        alt={'Image alternative'}
-                      />                    
-                    </ImageListItem>
-                  ))}
-                </ImageList>
-              </div>
-            </Grid>
-            <Grid item xs={9}>
-              <MovieDetails {...movie} />
-            </Grid>
-          </Grid>
-        </>
-      ) : (
-        <h2>Waiting for API data</h2>
-      )}
+        <PageTemplate movie={movie}>
+          <MovieDetails {...movie} /> {/* Children prop. */}
+        </PageTemplate>
+      </>
+    ) : (
+      <p>Waiting for movie details</p>
+    )}
     </>
   );
 };
 
-export default MoviePage;
+export default MovieDetailsPage;
