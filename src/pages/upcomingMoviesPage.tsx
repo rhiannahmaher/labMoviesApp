@@ -22,7 +22,8 @@ const genreFiltering = {
   condition: genreFilter,
 };
 
-const HomePage: React.FC = () => {
+// Updated to cache movies using react-query library.
+const UpcomingMoviesPage: React.FC = () => {
   const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>("upcoming", getUpcomingMovies); // Used existing DiscoverMovies interface. 
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [titleFiltering, genreFiltering]
@@ -66,4 +67,4 @@ const HomePage: React.FC = () => {
   );
 };
 
-export default HomePage;
+export default UpcomingMoviesPage;
