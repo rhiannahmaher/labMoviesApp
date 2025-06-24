@@ -16,23 +16,23 @@ export interface BaseMovieProps {
     revenue: number;
     vote_count: number;
     favourite?: boolean;
-  }
+}
 
-  export interface BaseMovieListProps {
-    movies: BaseMovieProps[];
-    selectFavourite: (movieId: number) => void;  //add this
-  }
+export interface BaseMovieListProps {
+  movies: BaseMovieProps[];
+  selectFavourite: (movieId: number) => void;  //add this
+}
 
-  export interface MovieDetailsProps extends BaseMovieProps { // Inherits info from BaseMovieProps
-    genres: {
-      id: number;
-      name: string;
-    }[];
-    production_countries: {
-      iso_3166_1: string; // From sampleData.ts
-      name: string;
-    }[];
-  }
+export interface MovieDetailsProps extends BaseMovieProps { // Inherits info from BaseMovieProps
+  genres: {
+    id: number;
+    name: string;
+  }[];
+  production_countries: {
+    iso_3166_1: string; // From sampleData.ts
+    name: string;
+  }[];
+}
 
   export interface MovieImage {
   file_path: string;
@@ -59,4 +59,19 @@ export interface Review{
   id: string;
   content: string
   author: string
+}
+
+// Interfaces for React-Query - Describe data returned from API. 
+export interface GenreData {
+  genres: {
+    id: string;
+    name: string
+  }[];
+}
+
+export interface DiscoverMovies {
+  page: number;	
+  total_pages: number;
+  total_results: number;
+  results: BaseMovieProps[];
 }
