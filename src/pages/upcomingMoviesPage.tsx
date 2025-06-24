@@ -9,7 +9,7 @@ import MovieFilterUI, {
 import { BaseMovieProps, DiscoverMovies } from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
-import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
+import AddToMustWatchIcon from "../components/cardIcons/addToMustWatch";
 
 const titleFiltering = {
   name: "title",
@@ -55,7 +55,7 @@ const HomePage: React.FC = () => {
         movies={displayedMovies}
         // Render prop.
         action={(movie: BaseMovieProps) => {
-          return <AddToFavouritesIcon {...movie} />
+          return <AddToMustWatchIcon {...movie} />
         }}      />
       <MovieFilterUI
         onFilterValuesChange={changeFilterValues}
