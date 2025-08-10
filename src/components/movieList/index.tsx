@@ -11,4 +11,4 @@ const MovieList: React.FC<BaseMovieListProps> = ({movies, action}) => {
   return movieCards;
 }
 
-  export default MovieList;
+export default MovieList;

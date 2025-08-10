@@ -20,8 +20,7 @@ const meta = {
   component: FilterMoviesCard,
   decorators: [
     (Story: React.FC) => <MemoryRouter initialEntries={["/"]}><Story /></MemoryRouter>,
-    (Story: React.FC) => (<QueryClientProvider client={queryClient}><Story /></QueryClientProvider>
-    )
+    (Story: React.FC) => (<QueryClientProvider client={queryClient}><Story /></QueryClientProvider>)
   ],
 } satisfies Meta<typeof FilterMoviesCard>;
 

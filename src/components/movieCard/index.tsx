@@ -20,8 +20,8 @@ const styles = {
   card: { maxWidth: 345 },
   media: { height: 500 },
   avatar: {
-    backgroundColor: "rgb(255, 0, 0)",
-  },
+    backgroundColor: "rgb(255, 0, 0)"
+  }
 };
 
 interface MovieCardProps  {

@@ -25,7 +25,7 @@ export default {
     {
       id: 28,
       name: "Action",
-    },
+    }
   ],
   homepage:
     "https://www.starwars.com/films/star-wars-episode-viii-the-last-jedi",
@@ -55,13 +55,13 @@ export default {
       logo_path: "/wdrCwmRnLFJhEoH8GSfymY85KHT.png",
       name: "Walt Disney Pictures",
       origin_country: "US",
-    },
+    }
   ],
   production_countries: [
     {
       iso_3166_1: "US",
       name: "United States of America",
-    },
+    }
   ],
   release_date: "2017-12-13",
   revenue: 1332459537,
@@ -70,7 +70,7 @@ export default {
     {
       iso_639_1: "en",
       name: "English",
-    },
+    }
   ],
   status: "Released",
   tagline: "Darkness rises... and light to meet it",

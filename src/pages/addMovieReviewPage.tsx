@@ -8,31 +8,31 @@ import Spinner from "../components/spinner";
 import { MovieDetailsProps } from "../types/interfaces";
 
 const WriteReviewPage: React.FC = () => {
-    const location = useLocation()
-    const { movieId } = location.state;
-    const { data: movie, error, isLoading, isError } = useQuery<MovieDetailsProps, Error>(
-        ["movie", movieId],
-        () => getMovie(movieId)
-    );
+  const location = useLocation()
+  const { movieId } = location.state;
+  const { data: movie, error, isLoading, isError } = useQuery<MovieDetailsProps, Error>(
+    ["movie", movieId],
+    () => getMovie(movieId)
+  );
 
-    if (isLoading) {
-        return <Spinner />;
-    }
+  if (isLoading) {
+    return <Spinner />;
+  }
 
-    if (isError) {
-        return <h1>{error.message}</h1>;
-    }
-    return (
-        <>
-            {movie ? (
-                    <PageTemplate movie={movie}>
-                        <ReviewForm {...movie} />
-                    </PageTemplate>
-            ) : (
-                <p>Waiting for movie review details</p>
-            )}
-        </>
-    );
+  if (isError) {
+    return <h1>{error.message}</h1>;
+  }
+  return (
+    <>
+      {movie ? (
+        <PageTemplate movie={movie}>
+          <ReviewForm {...movie} />
+        </PageTemplate>
+      ) : (
+        <p>Waiting for movie review details</p>
+      )}
+    </>
+  );
 };
 
 export default WriteReviewPage;

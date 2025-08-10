@@ -1,23 +1,23 @@
 const ratings = [
   {
     value: 5,
-    label: "Excellent",
+    label: "Excellent"
   },
   {
     value: 4,
-    label: "Good",
+    label: "Good"
   },
   {
     value: 3,
-    label: "Average",
+    label: "Average"
   },
   {
     value: 2,
-    label: "Poor",
+    label: "Poor"
   },
   {
     value: 0,
-    label: "Terrible",
-  },
+    label: "Terrible"
+  }
 ];
 export default ratings

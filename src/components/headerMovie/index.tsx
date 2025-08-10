@@ -15,10 +15,10 @@ const styles = {
     justifyContent: "space-around",
     alignItems: "center",
     flexWrap: "wrap",
-    padding: 1.5,
+    padding: 1.5
   },
   avatar: {
-    backgroundColor: "rgb(255, 0, 0)", // Red color for the heart icon
+    backgroundColor: "rgb(255, 0, 0)" // Red color for the heart icon
   }
 };
 

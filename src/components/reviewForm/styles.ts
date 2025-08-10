@@ -9,7 +9,7 @@ const styles =  {
     width: "100%",
     "& > * ": {
       marginTop: 2,
-    },
+    }
   },
   textField: {
     width: "40ch",
@@ -21,7 +21,7 @@ const styles =  {
     width: "50%",
     "& > * ": {
       width: "100%",
-    },
-  },
+    }
+  }
 };
 export default styles

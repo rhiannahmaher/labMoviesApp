@@ -6,7 +6,6 @@ import { IconButton } from "@mui/material";
 
 const AddToMustWatchIcon: React.FC<BaseMovieProps> = (movie) => {
   const context = useContext(MoviesContext);
-
   const onUserSelect = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     context.addToMustWatch(movie);

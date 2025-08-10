@@ -1,21 +1,21 @@
 export interface BaseMovieProps {
-    title: string;
-    budget: number;
-    homepage: string | undefined;
-    id: number;
-    genre_ids?: number[];
-    imdb_id: string;
-    original_language: string;
-    overview: string;
-    release_date: string;
-    vote_average: number;
-    popularity: number;
-    poster_path?: string;
-    tagline: string;
-    runtime: number;
-    revenue: number;
-    vote_count: number;
-    favourite?: boolean;
+  title: string;
+  budget: number;
+  homepage: string | undefined;
+  id: number;
+  genre_ids?: number[];
+  imdb_id: string;
+  original_language: string;
+  overview: string;
+  release_date: string;
+  vote_average: number;
+  popularity: number;
+  poster_path?: string;
+  tagline: string;
+  runtime: number;
+  revenue: number;
+  vote_count: number;
+  favourite?: boolean;
 }
 
 export interface BaseMovieListProps {
@@ -34,7 +34,7 @@ export interface MovieDetailsProps extends BaseMovieProps { // Inherits info fro
   }[];
 }
 
-  export interface MovieImage {
+export interface MovieImage {
   file_path: string;
   aspect_ratio?: number; //some props are optional...
   height?: number;

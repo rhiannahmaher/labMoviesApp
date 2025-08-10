@@ -8,7 +8,8 @@ export const getMovies = () => {
   })
     .catch((error) => {
       throw error
-    });
+    }
+  );
 };
   
 export const getMovie = (id: string) => {
@@ -22,7 +23,8 @@ export const getMovie = (id: string) => {
   })
   .catch((error) => {
     throw error
- });
+   }
+  );
 };
 
 export const getGenres = () => {
@@ -34,8 +36,8 @@ export const getGenres = () => {
     return response.json();
   })
   .catch((error) => {
-    throw error
- });
+    throw error 
+  });
 };
 
 export const getMovieImages = (id: string | number) => {
@@ -49,7 +51,8 @@ export const getMovieImages = (id: string | number) => {
   }).then((json) => json.posters)
     .catch((error) => {
       throw error
-    });
+    }
+  );
 };
 
 export const getMovieReviews = (id: string | number) => { //movie id can be string or number

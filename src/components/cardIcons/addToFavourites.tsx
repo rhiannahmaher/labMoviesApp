@@ -6,7 +6,6 @@ import {BaseMovieProps} from "../../types/interfaces"
 
 const AddToFavouritesIcon: React.FC<BaseMovieProps> = (movie) => {
   const context = useContext(MoviesContext);
-
   const onUserSelect = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     context.addToFavourites(movie);

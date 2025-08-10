@@ -9,71 +9,65 @@ import { useQuery } from "react-query";
 import Spinner from '../spinner';
 
 const styles = {
-    gridListRoot: {
-        display: "flex",
-        flexWrap: "wrap",
-        justifyContent: "space-around",
-    },
-    gridListTile: {
-        width: 450,
-        height: '100vh',
-    },
+  gridListRoot: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-around"
+  },
+  gridListTile: {
+    width: 450,
+    height: '100vh'
+  }
 };
 
 interface TemplateMoviePageProps {
-    movie: MovieDetailsProps;
-    children: React.ReactElement;
+  movie: MovieDetailsProps;
+  children: React.ReactElement;
 }
 
-
 const TemplateMoviePage: React.FC<TemplateMoviePageProps> = ({movie, children}) => {
-    const { data, error, isLoading, isError } = useQuery<MovieImage[], Error>(
-        ["images", movie.id],
-        () => getMovieImages(movie.id)
-    );
+  const { data, error, isLoading, isError } = useQuery<MovieImage[], Error>(
+    ["images", movie.id],
+    () => getMovieImages(movie.id)
+  );
 
-    if (isLoading) {
-        return <Spinner />;
-    }
+  if (isLoading) {
+    return <Spinner />;
+  }
 
-    if (isError) {
-        return <h1>{(error
+  if (isError) {
+    return <h1>{(error).message}</h1>;
+  }
 
-        ).message}</h1>;
-    }
-
-    const images = data as MovieImage[];
-
-    return (
-        <>
-            <MovieHeader {...movie} />
-
-            <Grid container spacing={5} style={{ padding: "15px" }}>
-                <Grid item xs={3}>
-                    <div>
-                        <ImageList cols={1}>
-                            {images.map((image: MovieImage) => (
-                                <ImageListItem
-                                    key={image.file_path}
-                                    sx={styles.gridListTile}
-                                    cols={1}
-                                >
-                                    <img
-                                        src={`https://image.tmdb.org/t/p/w500/${image.file_path}`}
-                                        alt={'Image alternative'}
-                                    />
-                                </ImageListItem>
-                            ))}
-                        </ImageList>
-                    </div>
-                </Grid>
-
-                <Grid item xs={9}>
-                    {children}
-                </Grid>
-            </Grid>
-        </>
-    );
+  const images = data as MovieImage[];
+  return (
+    <>
+      <MovieHeader {...movie} />
+      <Grid container spacing={5} style={{ padding: "15px" }}>
+        <Grid item xs={3}>
+          <div>
+            <ImageList cols={1}>
+              {images.map((image: MovieImage) => (
+                <ImageListItem
+                  key={image.file_path}
+                  sx={styles.gridListTile}
+                  cols={1}
+                >
+              <img
+                src={`https://image.tmdb.org/t/p/w500/${image.file_path}`}
+                alt={'Image alternative'}
+              />
+            </ImageListItem>
+              ))}
+            </ImageList>
+          </div>
+        </Grid>
+        <Grid item xs={9}>
+          {children}
+        </Grid>
+      </Grid>
+    </>
+  );
 };
 
 export default TemplateMoviePage;
