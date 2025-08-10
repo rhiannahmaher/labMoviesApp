@@ -83,3 +83,60 @@ export interface Review {
   rating: number,
   movieId: number
 }
+
+export interface BaseTvShowProps {
+  name: string;
+  id: number;
+  genre_ids?: number[];
+  original_language: string;
+  overview: string;
+  first_air_date: string;
+  vote_average: number;
+  popularity: number;
+  poster_path?: string;
+  episode_run_time: number[];
+  vote_count: number;
+  favourite?: boolean;
+}
+
+export interface BaseTvShowListProps {
+  shows: BaseTvShowProps[];
+  action: (m: BaseTvShowProps) => React.ReactNode;
+}
+
+export interface TvShowDetailsProps extends BaseTvShowProps { // Inherits info from BaseMovieProps
+  genres: {
+    id: number;
+    name: string;
+  }[];
+  production_countries: {
+    iso_3166_1: string; // From sampleData.ts
+    name: string;
+  }[];
+}
+
+export interface TvShowListPageTemplateProps extends BaseTvShowListProps {
+  title: string;
+}
+
+export interface TvShowImage {
+  file_path: string;
+  aspect_ratio?: number;
+  height?: number;
+  iso_639_1?: string;
+  vote_average?: number;
+  vote_count?: number;
+  width?: number;
+}
+
+export interface TvShowPageProps {
+  show: TvShowDetailsProps;
+  images: TvShowImage[];
+}
+
+export interface DiscoverTvShows {
+  page: number;	
+  total_pages: number;
+  total_results: number;
+  results: BaseTvShowProps[];
+}

@@ -12,6 +12,14 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from 'react-query/devtools';
 import MoviesContextProvider from "./contexts/moviesContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage';
+
+import TvShowsPage from "./pages/tvShowsPage";
+import TvShowPage from "./pages/tvShowDetailsPage";
+import FavouriteTvShowsPage from "./pages/favouriteTvShowsPage"; // NEW
+import TvShowReviewPage from "./pages/tvShowReviewPage";
+import AddTvShowReviewPage from './pages/addTvShowReviewPage';
+
+
 // Declaration of query client - manages cache in browser.
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -38,6 +46,11 @@ const App = () => {
               <Route path="*" element={<Navigate to="/" />} />
               <Route path="/reviews/:id" element={<MovieReviewPage/>} />
               <Route path="/reviews/form" element={<AddMovieReviewPage />} />
+              <Route path="/tv" element={<TvShowsPage/>} />
+              <Route path="/tv/favourites" element={<FavouriteTvShowsPage />} />
+              <Route path="/tv/:id" element={<TvShowPage />} />
+              <Route path="/tv/reviews/:id" element={<TvShowReviewPage />} />
+              <Route path="/tv/reviews/form" element={<AddTvShowReviewPage />} />
             </Routes>
           </MoviesContextProvider>
       </BrowserRouter>
