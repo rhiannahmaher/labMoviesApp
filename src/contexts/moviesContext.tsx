@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { BaseMovieProps } from "../types/interfaces";
+import { BaseMovieProps, Review } from "../types/interfaces";
 
 interface MovieContextInterface {
     favourites: number[];
@@ -7,13 +7,15 @@ interface MovieContextInterface {
     removeFromFavourites: ((movie: BaseMovieProps) => void);
     mustWatch: number[];
     addToMustWatch: (movie: BaseMovieProps) => void;
+    addReview: ((movie: BaseMovieProps, review: Review) => void);
 }
 const initialContextState: MovieContextInterface = {
     favourites: [],
     addToFavourites: () => {},
     removeFromFavourites: () => {},
     mustWatch: [], // Value.
-    addToMustWatch: () => {} // Function. 
+    addToMustWatch: () => {},
+    addReview: (movie, review) => { movie.id, review}
 };
 
 export const MoviesContext = React.createContext<MovieContextInterface>(initialContextState);
@@ -21,6 +23,7 @@ export const MoviesContext = React.createContext<MovieContextInterface>(initialC
 const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     const [favourites, setFavourites ] = useState<number[]>([]);
     const [mustWatch, setMustWatch ] = useState<number[]>([]); // useState only takes two variables (state and function). 
+    const [myReviews, setMyReviews] = useState<Review[]>( [] );
 
     const addToFavourites = useCallback((movie: BaseMovieProps) => {
         setFavourites((prevFavourites) => {
@@ -52,6 +55,10 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({ children }) 
         });
     }, []);
 
+    const addReview = (movie:BaseMovieProps, review: Review) => {   // NEW
+        setMyReviews( {...myReviews, [movie.id]: review } )
+    };
+
     return (
         <MoviesContext.Provider
             value={{
@@ -59,7 +66,8 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({ children }) 
                 addToFavourites,
                 removeFromFavourites,
                 mustWatch,
-                addToMustWatch
+                addToMustWatch,
+                addReview
             }}
         >
             {children}
