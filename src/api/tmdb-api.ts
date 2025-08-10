@@ -63,7 +63,8 @@ export const getMovieReviews = (id: string | number) => { //movie id can be stri
     .then((json) => {
       // console.log(json.results);
       return json.results;
-    });
+    }
+  );
 };
 
 export const getUpcomingMovies = () => {
@@ -76,5 +77,20 @@ export const getUpcomingMovies = () => {
   })
     .catch((error) => {
       throw error
-    });
+    }
+  );
+};
+
+export const getPopularMovies = () => {
+  return fetch(
+    `https://api.themoviedb.org/3/movie/popular?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1`
+  ).then((response) => {
+    if (!response.ok)
+      throw new Error(`Unable to fetch popular movies. Response status: ${response.status}`);
+    return response.json();
+  })
+    .catch((error) => {
+      throw error
+    }
+  );
 };
