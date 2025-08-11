@@ -96,6 +96,8 @@ export interface BaseTvShowProps {
   poster_path?: string;
   episode_run_time: number[];
   vote_count: number;
+  status: string;
+  number_of_seasons: number;
   favourite?: boolean;
 }
 

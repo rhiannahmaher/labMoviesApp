@@ -53,8 +53,16 @@ const TvShowDetails: React.FC<TvShowDetailsProps> = (show) => {
         ))}
       </Paper>
       <Paper component="ul" sx={styles.chipSet}>
-        
-        <Chip label={`Released: ${show.first_air_date}`} />
+        <Chip icon={<AccessTimeIcon />} label={`${show.number_of_seasons} seasons`} />
+        <Chip
+          icon={<MonetizationIcon />}
+          label={`Status: ${show.status}`}
+        />
+        <Chip
+          icon={<StarRate />}
+          label={`${show.vote_average} (${show.vote_count}`}
+        />
+        <Chip label={`First aired: ${show.first_air_date}`} />
       </Paper>
       <Fab
         color="secondary"
