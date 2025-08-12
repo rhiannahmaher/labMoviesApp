@@ -1,6 +1,6 @@
 import React from "react";
 import PageTemplate from "../components/templateTvShowPage";
-import ReviewForm from "../components/reviewForm";
+import ReviewForm from "../components/tvShowReviewForm";
 import { useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
 import { getTvShow } from "../api/tmdb-api";

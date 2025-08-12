@@ -81,7 +81,8 @@ export interface Review {
   content: string,
   agree: boolean,
   rating: number,
-  movieId: number
+  movieId?: number,
+  showId?: number
 }
 
 export interface BaseTvShowProps {

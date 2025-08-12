@@ -9,8 +9,8 @@ import TvShowFilterUI, {
   titleFilter,
   genreFilter,
 } from "../components/tvShowFilterUI";
-import RemoveFromFavourites from "../components/cardIcons/removeFromFavourites";
-import WriteReview from "../components/cardIcons/writeReview";
+import RemoveFromFavourites from "../components/cardIcons/removeFromTvShowFavourites";
+import WriteReview from "../components/cardIcons/writeTvShowReview";
 
 const titleFiltering = {
   name: "title",
