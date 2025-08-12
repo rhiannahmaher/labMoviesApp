@@ -1,9 +1,9 @@
 
 import type { Meta } from '@storybook/react';
-import MovieList from "../components/movieList";
+import MovieList from "../components/movie/movieList";
 import SampleMovie from "./sampleData";
 import { MemoryRouter } from "react-router";
-import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
+import AddToFavouritesIcon from "../components/cardIcons/movie/addToFavourites";
 import Grid from "@mui/material/Grid";
 import MoviesContextProvider from "../contexts/moviesContext";
 

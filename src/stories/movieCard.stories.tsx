@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import MovieCard from "../components/movieCard";
+import MovieCard from "../components/movie/movieCard";
 import SampleMovie from "./sampleData";
 import { MemoryRouter } from "react-router";
 import MoviesContextProvider from "../contexts/moviesContext";
-import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
+import AddToFavouritesIcon from "../components/cardIcons/movie/addToFavourites";
 
 const meta = {
   title: 'Home Page/MovieCard',
