@@ -33,7 +33,6 @@ interface FilterMoviesCardProps {
   genreFilter: string;
 }
 
-
 const FilterMoviesCard: React.FC<FilterMoviesCardProps> = ({ titleFilter, genreFilter, onUserInput }) => {
   const { data, error, isLoading, isError } = useQuery<GenreData, Error>("genres", getGenres);
 

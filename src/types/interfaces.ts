@@ -143,3 +143,8 @@ export interface DiscoverTvShows {
   total_results: number;
   results: BaseTvShowProps[];
 }
+
+export type SortOption = "none" | "title" | "date" | "rating" | "popularity";
+
+
+

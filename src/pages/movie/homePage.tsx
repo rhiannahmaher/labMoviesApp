@@ -6,10 +6,12 @@ import MovieFilterUI, {
   titleFilter,
   genreFilter,
 } from "../../components/movie/movieFilterUI";
-import { BaseMovieProps, DiscoverMovies } from "../../types/interfaces";
+import { BaseMovieProps, DiscoverMovies, SortOption } from "../../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../../components/spinner";
 import AddToFavouritesIcon from '../../components/cardIcons/movie/addToFavourites'
+import MovieSortUI from "../../components/movie/movieSortUI";
+import useSorting from "../../hooks/useSorting";
 
 const titleFiltering = {
   name: "title",
@@ -27,14 +29,10 @@ const HomePage: React.FC = () => {
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [titleFiltering, genreFiltering]
   );
+  const { sortOption, setSortOption, sortFunction } = useSorting("none");
 
-  if (isLoading) {
-    return <Spinner />;
-  }
-
-  if (isError) {
-    return <h1>{error.message}</h1>;
-  }
+  if (isLoading) return <Spinner />;
+  if (isError) return <h1>{error.message}</h1>;
 
   const changeFilterValues = (type: string, value: string) => {
     const changedFilter = { name: type, value: value };
@@ -45,22 +43,29 @@ const HomePage: React.FC = () => {
     setFilterValues(updatedFilterSet);
   };
 
+  const changeSortOption = (type: "sort", value: SortOption) => {
+  if (type === "sort") setSortOption(value);
+  };
+
   const movies = data ? data.results : [];
   const displayedMovies = filterFunction(movies);
+  const sortedMovies = sortFunction(displayedMovies);
 
   return (
     <>
       <PageTemplate
         title="Discover Movies"
-        movies={displayedMovies}
-        // Render prop.
-        action={(movie: BaseMovieProps) => {
-          return <AddToFavouritesIcon {...movie} />
-        }}      />
+        movies={sortedMovies}
+        action={(movie: BaseMovieProps) => <AddToFavouritesIcon {...movie} />}
+      />
       <MovieFilterUI
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
+      />
+      <MovieSortUI
+        onSortChange={changeSortOption}
+        sortOption={sortOption}
       />
     </>
   );
