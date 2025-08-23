@@ -20,6 +20,7 @@ import FavouriteTvShowsPage from "./pages/tvShow/favouriteTvShowsPage"; // NEW
 import TvShowReviewPage from "./pages/tvShow/tvShowReviewPage";
 import AddTvShowReviewPage from './pages/tvShow/addTvShowReviewPage';
 
+import MyFantasyMoviesPage from './pages/fantasy/myFantasyMoviesPage';
 
 // Declaration of query client - manages cache in browser.
 const queryClient = new QueryClient({
@@ -53,6 +54,7 @@ const App = () => {
                 <Route path="/tv/:id" element={<TvShowPage />} />
                 <Route path="/tv/reviews/:id" element={<TvShowReviewPage />} />
                 <Route path="/tv/reviews/form" element={<AddTvShowReviewPage />} />
+                <Route path="/fantasy" element={<MyFantasyMoviesPage />} />
               </Routes>
             </TvShowsContextProvider>
           </MoviesContextProvider>
