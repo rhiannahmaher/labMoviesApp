@@ -11,7 +11,7 @@ import { useQuery } from "react-query";
 import Spinner from "../../components/spinner";
 import AddToFavouritesIcon from '../../components/cardIcons/movie/addToFavourites'
 import MovieSortUI from "../../components/movie/movieSortUI";
-import useSorting from "../../hooks/useSorting";
+import useSorting from "../../hooks/useSortingMovies";
 
 const titleFiltering = {
   name: "title",

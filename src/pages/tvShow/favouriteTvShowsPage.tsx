@@ -11,6 +11,9 @@ import TvShowFilterUI, {
 } from "../../components/tvShow/tvShowFilterUI";
 import RemoveFromFavourites from "../../components/cardIcons/tvShow/removeFromTvShowFavourites";
 import WriteReview from "../../components/cardIcons/tvShow/writeTvShowReview";
+import { SortOption } from '../../types/interfaces';
+import TvShowSortUI from "../../components/tvShow/tvShowSortUI";
+import useSorting from "../../hooks/useSortingTvShows";
 
 const titleFiltering = {
   name: "title",
@@ -28,8 +31,8 @@ const FavouriteTvShowsPage: React.FC = () => {
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [titleFiltering, genreFiltering]
   );
+  const { sortOption, setSortOption, sortFunction } = useSorting("none");
 
-  // Create an array of queries and run them in parallel.
   const favouriteTvShowQueries = useQueries(
     showIds.map((showId) => {
       return {
@@ -39,7 +42,6 @@ const FavouriteTvShowsPage: React.FC = () => {
     })
   );
 
-  // Check if any of the parallel queries is still loading.
   const isLoading = favouriteTvShowQueries.find((m) => m.isLoading === true);
 
   if (isLoading) {
@@ -58,11 +60,17 @@ const FavouriteTvShowsPage: React.FC = () => {
     setFilterValues(updatedFilterSet);
   };
 
+  const changeSortOption = (type: "sort", value: SortOption) => {
+    if (type === "sort") setSortOption(value);
+  };
+
+  const sortedShows = sortFunction(displayedShows);
+
   return (
     <>
       <PageTemplate
         title="Favourite TV Shows"
-        shows={displayedShows}
+        shows={sortedShows}
         action={(show) => {
           return (
             <>
@@ -76,6 +84,10 @@ const FavouriteTvShowsPage: React.FC = () => {
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
+      />
+      <TvShowSortUI
+        onSortChange={changeSortOption}
+        sortOption={sortOption}
       />
     </>
   );

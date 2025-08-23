@@ -11,6 +11,9 @@ import MovieFilterUI, {
 } from "../../components/movie/movieFilterUI";
 import RemoveFromFavourites from "../../components/cardIcons/movie/removeFromFavourites";
 import WriteReview from "../../components/cardIcons/movie/writeReview";
+import { SortOption } from '../../types/interfaces';
+import MovieSortUI from "../../components/movie/movieSortUI";
+import useSorting from "../../hooks/useSortingMovies";
 
 const titleFiltering = {
   name: "title",
@@ -28,8 +31,8 @@ const FavouriteMoviesPage: React.FC = () => {
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [titleFiltering, genreFiltering]
   );
+  const { sortOption, setSortOption, sortFunction } = useSorting("none");
 
-  // Create an array of queries and run them in parallel.
   const favouriteMovieQueries = useQueries(
     movieIds.map((movieId) => {
       return {
@@ -39,7 +42,6 @@ const FavouriteMoviesPage: React.FC = () => {
     })
   );
 
-  // Check if any of the parallel queries is still loading.
   const isLoading = favouriteMovieQueries.find((m) => m.isLoading === true);
 
   if (isLoading) {
@@ -58,11 +60,17 @@ const FavouriteMoviesPage: React.FC = () => {
     setFilterValues(updatedFilterSet);
   };
 
+  const changeSortOption = (type: "sort", value: SortOption) => {
+    if (type === "sort") setSortOption(value);
+  };
+
+  const sortedMovies = sortFunction(displayedMovies);
+
   return (
     <>
       <PageTemplate
         title="Favourite Movies"
-        movies={displayedMovies}
+        movies={sortedMovies}
         action={(movie) => {
           return (
             <>
@@ -76,6 +84,10 @@ const FavouriteMoviesPage: React.FC = () => {
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
+      />
+      <MovieSortUI
+        onSortChange={changeSortOption}
+        sortOption={sortOption}
       />
     </>
   );

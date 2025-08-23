@@ -10,6 +10,9 @@ import { BaseTvShowProps, DiscoverTvShows } from "../../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../../components/spinner";
 import AddToTvShowFavouritesIcon from '../../components/cardIcons/tvShow/addToTvShowFavourites'
+import { SortOption } from '../../types/interfaces';
+import TvShowSortUI from "../../components/tvShow/tvShowSortUI";
+import useSorting from "../../hooks/useSortingTvShows";
 
 const titleFiltering = {
   name: "title",
@@ -27,6 +30,7 @@ const TvShowsPage: React.FC = () => {
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [titleFiltering, genreFiltering]
   );
+  const { sortOption, setSortOption, sortFunction } = useSorting("none");
 
   if (isLoading) {
     return <Spinner />;
@@ -44,15 +48,19 @@ const TvShowsPage: React.FC = () => {
         : [filterValues[0], changedFilter];
     setFilterValues(updatedFilterSet);
   };
+  const changeSortOption = (type: "sort", value: SortOption) => {
+  if (type === "sort") setSortOption(value);
+  };
 
   const shows = data ? data.results : [];
   const displayedTvShows = filterFunction(shows);
+  const sortedTvShows = sortFunction(displayedTvShows);
 
   return (
     <>
       <PageTemplate
         title="TV Shows"
-        shows={displayedTvShows}
+        shows={sortedTvShows}
         // Render prop.
         action={(show: BaseTvShowProps) => {
           return <AddToTvShowFavouritesIcon {...show} />
@@ -61,6 +69,10 @@ const TvShowsPage: React.FC = () => {
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
+      />
+      <TvShowSortUI
+        onSortChange={changeSortOption}
+        sortOption={sortOption}
       />
     </>
   );

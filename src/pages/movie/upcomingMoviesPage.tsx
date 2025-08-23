@@ -6,10 +6,12 @@ import MovieFilterUI, {
   titleFilter,
   genreFilter,
 } from "../../components/movie/movieFilterUI";
-import { BaseMovieProps, DiscoverMovies } from "../../types/interfaces";
+import { BaseMovieProps, DiscoverMovies, SortOption } from "../../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../../components/spinner";
 import AddToMustWatchIcon from "../../components/cardIcons/movie/addToMustWatch";
+import MovieSortUI from "../../components/movie/movieSortUI";
+import useSorting from "../../hooks/useSortingMovies";
 
 const titleFiltering = {
   name: "title",
@@ -29,6 +31,7 @@ const UpcomingMoviesPage: React.FC = () => {
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [titleFiltering, genreFiltering]
   );
+  const { sortOption, setSortOption, sortFunction } = useSorting("none");
 
   if (isLoading) {
     return <Spinner />;
@@ -47,14 +50,19 @@ const UpcomingMoviesPage: React.FC = () => {
     setFilterValues(updatedFilterSet);
   };
 
+  const changeSortOption = (type: "sort", value: SortOption) => {
+    if (type === "sort") setSortOption(value);
+  };
+
   const movies = data ? data.results : [];
   const displayedMovies = filterFunction(movies);
+  const sortedMovies = sortFunction(displayedMovies);
 
   return (
     <>
       <PageTemplate
         title="Upcoming Movies"
-        movies={displayedMovies}
+        movies={sortedMovies}
         // Render prop.
         action={(movie: BaseMovieProps) => {
           return <AddToMustWatchIcon {...movie} />
@@ -63,6 +71,10 @@ const UpcomingMoviesPage: React.FC = () => {
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
+      />
+      <MovieSortUI
+        onSortChange={changeSortOption}
+        sortOption={sortOption}
       />
     </>
   );
