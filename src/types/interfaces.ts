@@ -146,5 +146,12 @@ export interface DiscoverTvShows {
 
 export type SortOption = "none" | "title" | "date" | "rating" | "popularity";
 
-
+export type FantasyMovieFormInputs = {
+  title: string;
+  overview: string;
+  genres: string[];
+  releaseDate: string;
+  runtime: number;
+  productionCompanies: string;
+};
 

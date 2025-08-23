@@ -1,21 +1,25 @@
 import React from "react";
-import { Box, Paper, Typography } from "@mui/material";
+import FantasyMovieHeader from "../headerFantasyMovie";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
 
 interface TemplateFantasyMoviePageProps {
   title?: string;
   children: React.ReactNode;
 }
 
-const TemplateFantasyMoviePage: React.FC<TemplateFantasyMoviePageProps> = ({ title = "My Fantasy Movie", children }) => {
+const TemplateFantasyMoviePage: React.FC<TemplateFantasyMoviePageProps> = ({ children }) => {
   return (
-    <Box sx={{ backgroundColor: "#f5f5f5", minHeight: "100vh", py: 4 }}>
-      <Paper elevation={3} sx={{ maxWidth: 700, margin: "0 auto", p: 3 }}>
-        <Typography variant="h3" component="h1" gutterBottom>
-          {title}
-        </Typography>
-        {children}
-      </Paper>
-    </Box>
+    <>
+      <FantasyMovieHeader />
+      <Grid container spacing={5} style={{ padding: "15px" }}>
+        <Grid item xs={12}>
+          <Paper sx={{ p: 3 }}>
+            {children}
+          </Paper>
+        </Grid>
+      </Grid>
+    </>
   );
 };
 

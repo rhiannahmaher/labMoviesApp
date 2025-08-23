@@ -1,21 +1,14 @@
 import React, { useState, ChangeEvent } from "react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { TextField, Button, MenuItem, Typography, Box, Snackbar, Alert, InputLabel, Select, FormControl } from "@mui/material";
-
-const genresList = [
-  "Action", "Comedy", "Drama", "Fantasy", "Horror", "Romance", "Sci-Fi", "Thriller"
-];
-
-type FantasyMovieFormInputs = {
-  title: string;
-  overview: string;
-  genres: string[];
-  releaseDate: string;
-  runtime: number;
-  productionCompanies: string;
-};
+import { useQuery } from "react-query";
+import { getGenres } from "../../../api/tmdb-api";
+import Spinner from '../../spinner';
+import { FantasyMovieFormInputs } from '../../../types/interfaces';
 
 const FantasyMovieForm: React.FC = () => {
+  const { data, error, isLoading } = useQuery("genres", getGenres);
+  const genresList = data?.genres || [];
   const defaultValues = {
     defaultValues: {
       title: "",
@@ -36,10 +29,14 @@ const FantasyMovieForm: React.FC = () => {
 
   const [open, setOpen] = useState(false);
 
+  if (isLoading) 
+    return <Spinner />;
+  if (error) 
+    return <div>Error loading genres</div>;
+
   const handleSnackClose = () => setOpen(false);
 
   const onSubmit: SubmitHandler<FantasyMovieFormInputs> = (data) => {
-    // You can save to localStorage, context, or just log for now
     console.log("Fantasy Movie:", data);
     setOpen(true);
     reset();
@@ -104,14 +101,14 @@ const FantasyMovieForm: React.FC = () => {
             <FormControl fullWidth margin="normal">
               <InputLabel>Genres</InputLabel>
               <Select
-              {...field}
+                {...field}
                 multiple
                 label="Genres"
                 renderValue={(selected) => (selected as string[]).join(", ")}
               >
                 {genresList.map((genre) => (
-                  <MenuItem key={genre} value={genre}>
-                    {genre}
+                  <MenuItem key={genre.id} value={genre.name}>
+                    {genre.name}
                   </MenuItem>
                 ))}
               </Select>
