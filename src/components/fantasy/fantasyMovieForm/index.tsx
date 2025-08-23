@@ -1,12 +1,13 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useEffect } from "react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { TextField, Button, MenuItem, Typography, Box, Snackbar, Alert, InputLabel, Select, FormControl } from "@mui/material";
+import { TextField, Button, MenuItem, Typography, Box, Snackbar, Alert, InputLabel, Select, FormControl, Paper, Grid } from "@mui/material";
 import { useQuery } from "react-query";
 import { getGenres } from "../../../api/tmdb-api";
 import Spinner from '../../spinner';
 import { FantasyMovieFormInputs } from '../../../types/interfaces';
 
 const FantasyMovieForm: React.FC = () => {
+  const [fantasyMovies, setFantasyMovies] = useState<FantasyMovieFormInputs[]>([]);
   const { data, error, isLoading } = useQuery("genres", getGenres);
   const genresList = data?.genres || [];
   const defaultValues = {
@@ -29,6 +30,13 @@ const FantasyMovieForm: React.FC = () => {
 
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    const stored = localStorage.getItem("fantasyMovies");
+    if (stored) {
+      setFantasyMovies(JSON.parse(stored));
+    }
+  }, []);
+
   if (isLoading) 
     return <Spinner />;
   if (error) 
@@ -37,13 +45,34 @@ const FantasyMovieForm: React.FC = () => {
   const handleSnackClose = () => setOpen(false);
 
   const onSubmit: SubmitHandler<FantasyMovieFormInputs> = (data) => {
-    console.log("Fantasy Movie:", data);
+    const updatedMovies = [...fantasyMovies, data];
+    setFantasyMovies((prev) => [...prev, data]);
+    localStorage.setItem("fantasyMovies", JSON.stringify(updatedMovies));
     setOpen(true);
     reset();
   };
 
   return (
     <Box component="div" sx={{ maxWidth: 500, margin: "0 auto", p: 2 }}>
+      {fantasyMovies.length > 0 && (
+        <Box sx={{ mb: 4 }}>
+          <Typography variant="h5" gutterBottom>My Fantasy Movies</Typography>
+          <Grid container spacing={2}>
+            {fantasyMovies.map((movie, idx) => (
+              <Grid item key={idx} xs={12} sm={6} md={4} lg={3}>
+                <Paper sx={{ p: 2, minHeight: 180 }}>
+                  <Typography variant="h6">{movie.title}</Typography>
+                  <Typography>Overview: {movie.overview}</Typography>
+                  <Typography>Genres: {movie.genres.join(", ")}</Typography>
+                  <Typography>Release Date: {movie.releaseDate}</Typography>
+                  <Typography>Runtime: {movie.runtime} min</Typography>
+                  <Typography>Production Companies: {movie.productionCompanies}</Typography>
+                </Paper>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      )}
       <Typography component="h2" variant="h4" gutterBottom>
         Create Your Fantasy Movie
       </Typography>
@@ -152,7 +181,7 @@ const FantasyMovieForm: React.FC = () => {
               helperText={errors.runtime?.message}
             />
           )}
-          />
+        />
         <Controller
           name="productionCompanies"
           control={control}
