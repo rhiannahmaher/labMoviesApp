@@ -64,7 +64,8 @@ const HomePage: React.FC = () => {
         // Render prop.
         action={(movie: BaseMovieProps) => {
           return <AddToFavouritesIcon {...movie} />
-        }}      />
+        }}     
+      />
       <MovieFilterUI
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}

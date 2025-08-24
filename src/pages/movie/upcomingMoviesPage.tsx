@@ -66,7 +66,9 @@ const UpcomingMoviesPage: React.FC = () => {
         // Render prop.
         action={(movie: BaseMovieProps) => {
           return <AddToMustWatchIcon {...movie} />
-        }}      />
+        }}    
+        backTarget="/movies/popular"
+      />
       <MovieFilterUI
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}

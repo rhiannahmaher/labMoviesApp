@@ -79,6 +79,7 @@ const FavouriteMoviesPage: React.FC = () => {
             </>
           );
         }}
+        backTarget="/movies/upcoming"
       />
       <MovieFilterUI
         onFilterValuesChange={changeFilterValues}
