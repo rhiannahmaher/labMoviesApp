@@ -14,6 +14,7 @@ import WriteReview from "../../components/cardIcons/tvShow/writeTvShowReview";
 import { SortOption } from '../../types/interfaces';
 import TvShowSortUI from "../../components/tvShow/tvShowSortUI";
 import useSorting from "../../hooks/useSortingTvShows";
+import { AuthContext } from "../../contexts/authContext";
 
 const titleFiltering = {
   name: "title",
@@ -27,6 +28,7 @@ const genreFiltering = {
 };
 
 const FavouriteTvShowsPage: React.FC = () => {
+  const { isPremium } = useContext(AuthContext) || {};
   const { favourites: showIds } = useContext(TvShowsContext);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [titleFiltering, genreFiltering]
@@ -87,10 +89,12 @@ const FavouriteTvShowsPage: React.FC = () => {
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
       />
-      <TvShowSortUI
-        onSortChange={changeSortOption}
-        sortOption={sortOption}
-      />
+      {isPremium && (
+        <TvShowSortUI
+          onSortChange={changeSortOption}
+          sortOption={sortOption}
+        />
+      )}
     </>
   );
 };
