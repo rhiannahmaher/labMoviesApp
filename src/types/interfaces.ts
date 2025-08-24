@@ -106,6 +106,7 @@ export interface BaseTvShowProps {
 export interface BaseTvShowListProps {
   shows: BaseTvShowProps[];
   action: (m: BaseTvShowProps) => React.ReactNode;
+  backTarget?: string;
 }
 
 export interface TvShowDetailsProps extends BaseTvShowProps { // Inherits info from BaseMovieProps

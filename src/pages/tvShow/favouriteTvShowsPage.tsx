@@ -79,6 +79,7 @@ const FavouriteTvShowsPage: React.FC = () => {
             </>
           );
         }}
+        backTarget="/tv"
       />
       <TvShowFilterUI
         onFilterValuesChange={changeFilterValues}

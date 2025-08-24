@@ -64,7 +64,9 @@ const TvShowsPage: React.FC = () => {
         // Render prop.
         action={(show: BaseTvShowProps) => {
           return <AddToTvShowFavouritesIcon {...show} />
-        }}      />
+        }}      
+        backTarget="/movies/favourites"
+      />
       <TvShowFilterUI
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
