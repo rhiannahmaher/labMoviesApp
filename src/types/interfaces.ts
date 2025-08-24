@@ -21,6 +21,7 @@ export interface BaseMovieProps {
 export interface BaseMovieListProps {
   movies: BaseMovieProps[];
   action: (m: BaseMovieProps) => React.ReactNode;
+  backTarget?: string;
 }
 
 export interface MovieDetailsProps extends BaseMovieProps { // Inherits info from BaseMovieProps

@@ -8,6 +8,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import { MovieDetailsProps } from "../../../types/interfaces"; 
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Avatar from "@mui/material/Avatar";
+import { useNavigate } from "react-router-dom";
 
 const styles = {
     root: {  
@@ -24,6 +25,7 @@ const styles = {
 
 const MovieHeader: React.FC<MovieDetailsProps> = (movie) => {
   const [displayFavourite, setDisplayFavourite] = useState(false); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedFavourites = JSON.parse(localStorage.getItem("favourites") || "[]"); // When headerMovie component initially loads, it checks local storage for favourited movies.
@@ -34,10 +36,10 @@ const MovieHeader: React.FC<MovieDetailsProps> = (movie) => {
 
   return (
     <Paper component="div" sx={styles.root}>
-      <IconButton aria-label="go back">
+      <IconButton aria-label="go back" onClick={() => navigate(-1)}> 
         <ArrowBackIcon color="primary" fontSize="large" />
       </IconButton>
-
+      
       <Typography variant="h4" component="h3">
         {displayFavourite && ( // If setDisplayFavourite is true, component is re-rendered and icon is displayed.
           <Avatar sx={styles.avatar}>

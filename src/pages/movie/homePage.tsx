@@ -57,6 +57,7 @@ const HomePage: React.FC = () => {
         title="Discover Movies"
         movies={sortedMovies}
         action={(movie: BaseMovieProps) => <AddToFavouritesIcon {...movie} />}
+        backTarget="/movies/upcoming"
       />
       <MovieFilterUI
         onFilterValuesChange={changeFilterValues}
