@@ -5,6 +5,7 @@ interface AuthContextInterface {
   token: string | null;
   authenticate: (username: string, password: string) => Promise<void>;
   isAuthenticated: boolean;
+  isPremium: boolean;
   signout: () => void;
 }
 
@@ -13,6 +14,7 @@ export const AuthContext = createContext<AuthContextInterface | null>(null);
 const AuthContextProvider:React.FC<React.PropsWithChildren> = (props) => {
   const [token, setToken] = useState<string|null>(null);
   const isAuthenticated = !!token;
+  const isPremium = isAuthenticated;
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -28,6 +30,7 @@ const AuthContextProvider:React.FC<React.PropsWithChildren> = (props) => {
     setToken(token);
       const origin = location.state?.intent?.pathname || "/";
       navigate(origin);
+    setIsPremium(username === "premium");
   };
 
   const signout = () => {
@@ -41,6 +44,7 @@ const AuthContextProvider:React.FC<React.PropsWithChildren> = (props) => {
         token, 
         authenticate,
         isAuthenticated,
+        isPremium,
         signout
       }}
     >

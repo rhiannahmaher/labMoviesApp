@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import PageTemplate from "../../components/movie/templateMovieListPage";
 import { getMovies } from "../../api/tmdb-api";
 import useFiltering from "../../hooks/useFiltering";
@@ -13,6 +13,7 @@ import AddToFavouritesIcon from '../../components/cardIcons/movie/addToFavourite
 import MovieSortUI from "../../components/movie/movieSortUI";
 import useSorting from "../../hooks/useSortingMovies";
 import { Box, Pagination } from "@mui/material";
+import { AuthContext } from "../../contexts/authContext";
 
 const titleFiltering = {
   name: "title",
@@ -27,6 +28,7 @@ const genreFiltering = {
 
 const HomePage: React.FC = () => {
   const [page, setPage] = useState(1);
+  const { isPremium } = useContext(AuthContext) || {};
   const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(["discover", page], () => getMovies(page));
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [titleFiltering, genreFiltering]
@@ -66,10 +68,12 @@ const HomePage: React.FC = () => {
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
       />
-      <MovieSortUI
-        onSortChange={changeSortOption}
-        sortOption={sortOption}
-      />
+      {isPremium && (
+        <MovieSortUI
+          onSortChange={changeSortOption}
+          sortOption={sortOption}
+        />
+      )}
       <Box sx={{ display: 'flex', justifyContent: 'center', margin: '2rem 0' }}>
         <Pagination
           count={data?.total_pages || 1}

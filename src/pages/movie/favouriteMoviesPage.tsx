@@ -14,6 +14,7 @@ import WriteReview from "../../components/cardIcons/movie/writeReview";
 import { SortOption } from '../../types/interfaces';
 import MovieSortUI from "../../components/movie/movieSortUI";
 import useSorting from "../../hooks/useSortingMovies";
+import { AuthContext } from "../../contexts/authContext";
 
 const titleFiltering = {
   name: "title",
@@ -27,6 +28,7 @@ const genreFiltering = {
 };
 
 const FavouriteMoviesPage: React.FC = () => {
+  const { isPremium } = useContext(AuthContext) || {};
   const { favourites: movieIds } = useContext(MoviesContext);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [titleFiltering, genreFiltering]
@@ -87,10 +89,12 @@ const FavouriteMoviesPage: React.FC = () => {
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
       />
-      <MovieSortUI
-        onSortChange={changeSortOption}
-        sortOption={sortOption}
-      />
+      {isPremium && (
+        <MovieSortUI
+          onSortChange={changeSortOption}
+          sortOption={sortOption}
+        />
+      )}
     </>
   );
 };
