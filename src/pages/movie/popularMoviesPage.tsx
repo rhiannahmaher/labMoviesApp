@@ -64,7 +64,8 @@ const HomePage: React.FC = () => {
         // Render prop.
         action={(movie: BaseMovieProps) => {
           return <AddToFavouritesIcon {...movie} />
-        }}     
+        }}    
+        forwardTarget="/movies/upcoming" 
       />
       <MovieFilterUI
         onFilterValuesChange={changeFilterValues}

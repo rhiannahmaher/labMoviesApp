@@ -10,11 +10,11 @@ const styles = {
   }
 };
 
-const MovieListPageTemplate: React.FC<MovieListPageTemplateProps> = ({ movies, title, action, backTarget })=> {
+const MovieListPageTemplate: React.FC<MovieListPageTemplateProps> = ({ movies, title, action, backTarget, forwardTarget })=> {
   return (
     <Grid container sx={styles.root}>
       <Grid item xs={12}>
-        <Header title={title} backTarget={backTarget} />
+        <Header title={title} backTarget={backTarget} forwardTarget={forwardTarget} />
       </Grid>
       <Grid item container spacing={5}>
         <MovieList action={action} movies={movies}></MovieList>

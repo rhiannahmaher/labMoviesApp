@@ -68,6 +68,7 @@ const UpcomingMoviesPage: React.FC = () => {
           return <AddToMustWatchIcon {...movie} />
         }}    
         backTarget="/movies/popular"
+        forwardTarget="/movies/favourites"
       />
       <MovieFilterUI
         onFilterValuesChange={changeFilterValues}

@@ -22,6 +22,7 @@ export interface BaseMovieListProps {
   movies: BaseMovieProps[];
   action: (m: BaseMovieProps) => React.ReactNode;
   backTarget?: string;
+  forwardTarget?: string;
 }
 
 export interface MovieDetailsProps extends BaseMovieProps { // Inherits info from BaseMovieProps
@@ -107,6 +108,7 @@ export interface BaseTvShowListProps {
   shows: BaseTvShowProps[];
   action: (m: BaseTvShowProps) => React.ReactNode;
   backTarget?: string;
+  forwardTarget?: string;
 }
 
 export interface TvShowDetailsProps extends BaseTvShowProps { // Inherits info from BaseMovieProps
@@ -151,6 +153,7 @@ export type SortOption = "none" | "title" | "date" | "rating" | "popularity";
 export interface FantasyMoviePageTemplateProps {
   title: string;
   backTarget?: string;
+  forwardTarget?: string;
   children?: React.ReactNode;
 }
 

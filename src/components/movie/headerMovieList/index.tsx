@@ -19,11 +19,13 @@ const styles = {
 interface HeaderProps {
   title: string;
   backTarget?: string;
+  forwardTarget?: string;
 }
 
 const Header: React.FC<HeaderProps> = (headerProps) => {
   const title = headerProps.title;
   const backTarget = headerProps.backTarget || "/";
+  const forwardTarget = headerProps.forwardTarget || "/";
   const navigate = useNavigate();
   return (
     <Paper component="div" sx={styles.root}>
@@ -34,9 +36,7 @@ const Header: React.FC<HeaderProps> = (headerProps) => {
       <Typography variant="h4" component="h3">
         {title}
       </Typography>
-      <IconButton
-        aria-label="go forward"
-      >
+      <IconButton aria-label="go forward" onClick={() => navigate(forwardTarget)}>
         <ArrowForwardIcon color="primary" fontSize="large" />
       </IconButton>
     </Paper>
