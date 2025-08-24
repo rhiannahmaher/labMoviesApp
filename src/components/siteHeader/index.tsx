@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { AuthContext } from "../../contexts/authContext";
+import NavDropdown from "../../components/dropdownMenu";
 
 const styles = {
   title: {
@@ -31,11 +32,24 @@ const SiteHeader: React.FC = () => {
 
   const menuOptions = [
     { label: "Home", path: "/" },
-    { label: "Popular", path: "/movies/popular" },
-    { label: "Upcoming", path: "/movies/upcoming" },
-    { label: "Favorites", path: "/movies/favourites" },
-    { label: "TV Shows", path: "/tv" },
-    { label: "Favourites", path: "/tv/favourites" }
+    {
+      label: "Movies",
+      dropdown: true,
+      options: [
+        { label: "Popular", path: "/movies/popular" },
+        { label: "Upcoming", path: "/movies/upcoming" },
+        { label: "Favourites", path: "/movies/favourites" }
+      ]
+    },
+    {
+      label: "TV Shows",
+      dropdown: true,
+      options: [
+        { label: "TV Shows", path: "/tv" },
+        { label: "Favourites", path: "/tv/favourites" }
+      ]
+    },
+    { label: "My Fantasy Movies", path: "/fantasy" }
   ];
 
   const handleMenuSelect = (pageURL: string) => {
@@ -83,32 +97,54 @@ const SiteHeader: React.FC = () => {
                 open={open}
                 onClose={() => setAnchorEl(null)}
               >
-                {menuOptions.map((opt) => (
-                  <MenuItem
-                    key={opt.label}
-                    onClick={() => handleMenuSelect(opt.path)}
-                  >
-                    {opt.label}
-                  </MenuItem>
-                ))}
+                {menuOptions.map((opt) =>
+                  opt.dropdown
+                    ? opt.options.map((sub) => (
+                        <MenuItem
+                          key={sub.label}
+                          onClick={() => {
+                            handleMenuSelect(sub.path);
+                            setAnchorEl(null);
+                          }}
+                        >
+                          {sub.label}
+                        </MenuItem>
+                      ))
+                    : (
+                        <MenuItem
+                          key={opt.label}
+                          onClick={() => {
+                            handleMenuSelect(opt.path);
+                            setAnchorEl(null);
+                          }}
+                        >
+                          {opt.label}
+                        </MenuItem>
+                      )
+                )}
                 {!auth?.isAuthenticated ? (
-                  <MenuItem onClick={() => handleMenuSelect("/login")}>Login</MenuItem>
+                  <MenuItem onClick={() => { handleMenuSelect("/login"); setAnchorEl(null); }}>Login</MenuItem>
                 ) : (
-                  <MenuItem onClick={auth.signout}>Logout</MenuItem>
+                  <MenuItem onClick={() => { auth.signout(); setAnchorEl(null); }}>Logout</MenuItem>
                 )}
               </Menu>
             </>
           ) : (
             <>
-              {menuOptions.map((opt) => (
-                <Button
-                  key={opt.label}
-                  color="inherit"
-                  onClick={() => handleMenuSelect(opt.path)}
-                >
-                  {opt.label}
-                </Button>
-              ))}
+              {menuOptions.map((opt) =>
+                opt.dropdown ? (
+                  <NavDropdown key={opt.label} label={opt.label} options={opt.options} />
+                ) : (
+                  <Button
+                    key={opt.label}
+                    color="inherit"
+                    sx={{ mx: 1 }}
+                    onClick={() => navigate(opt.path)}
+                  >
+                    {opt.label}
+                  </Button>
+                )
+              )}
               {!auth?.isAuthenticated ? (
                 <Button color="inherit" onClick={() => navigate("/login")}>Login</Button>
               ) : (
