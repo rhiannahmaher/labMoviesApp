@@ -1,26 +1,35 @@
 import React from "react";
-import FantasyMovieHeader from "../headerFantasyMovie";
+import Header from "../headerFantasyMovie";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
+import { FantasyMoviePageTemplateProps } from "../../../types/interfaces";
 
-interface TemplateFantasyMoviePageProps {
-  title?: string;
-  children: React.ReactNode;
-}
+const styles = {
+  root: { 
+    backgroundColor: "#bfbfbf",
+  },
+  paper: {
+    padding: 2,
+    margin: 2,
+    backgroundColor: "white"
+  }
+};
 
-const TemplateFantasyMoviePage: React.FC<TemplateFantasyMoviePageProps> = ({ children }) => {
+const FantasyMoviePageTemplate: React.FC<FantasyMoviePageTemplateProps> = ({ title, backTarget, children }) => {
   return (
-    <>
-      <FantasyMovieHeader />
-      <Grid container spacing={5} style={{ padding: "15px" }}>
+    <Grid container sx={styles.root}>
+      <Grid item xs={12}>
+        <Header title={title} backTarget={backTarget} />
+      </Grid>
+      <Grid item container spacing={5} sx={{ padding: 2 }}>
         <Grid item xs={12}>
-          <Paper sx={{ p: 3 }}>
+          <Paper sx={styles.paper} elevation={3}>
             {children}
           </Paper>
         </Grid>
       </Grid>
-    </>
+    </Grid>
   );
 };
 
-export default TemplateFantasyMoviePage;
+export default FantasyMoviePageTemplate;

@@ -3,9 +3,11 @@ import TemplateFantasyMoviePage from "../../components/fantasy/templateFantasyMo
 import FantasyMovieForm from "../../components/fantasy/fantasyMovieForm";
 
 const MyFantasyMoviesPage: React.FC = () => {
-
   return (
-    <TemplateFantasyMoviePage>
+    <TemplateFantasyMoviePage
+      title="My Fantasy Movies"
+      backTarget="/tv/favourites"
+    >
       <FantasyMovieForm />
     </TemplateFantasyMoviePage>
   );

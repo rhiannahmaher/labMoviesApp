@@ -148,6 +148,12 @@ export interface DiscoverTvShows {
 
 export type SortOption = "none" | "title" | "date" | "rating" | "popularity";
 
+export interface FantasyMoviePageTemplateProps {
+  title: string;
+  backTarget?: string;
+  children?: React.ReactNode;
+}
+
 export type FantasyMovieFormInputs = {
   title: string;
   overview: string;
