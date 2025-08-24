@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PageTemplate from "../../components/tvShow/templateTvShowListPage";
 import { getTvShows } from "../../api/tmdb-api";
 import useFiltering from "../../hooks/useFiltering";
@@ -13,6 +13,7 @@ import AddToTvShowFavouritesIcon from '../../components/cardIcons/tvShow/addToTv
 import { SortOption } from '../../types/interfaces';
 import TvShowSortUI from "../../components/tvShow/tvShowSortUI";
 import useSorting from "../../hooks/useSortingTvShows";
+import { Box, Pagination } from "@mui/material";
 
 const titleFiltering = {
   name: "title",
@@ -26,7 +27,8 @@ const genreFiltering = {
 };
 
 const TvShowsPage: React.FC = () => {
-  const { data, error, isLoading, isError } = useQuery<DiscoverTvShows, Error>("tv", getTvShows);
+  const [page, setPage] = useState(1);
+  const { data, error, isLoading, isError } = useQuery<DiscoverTvShows, Error>(["tv", page], () => getTvShows(page));
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [titleFiltering, genreFiltering]
   );
@@ -77,6 +79,15 @@ const TvShowsPage: React.FC = () => {
         onSortChange={changeSortOption}
         sortOption={sortOption}
       />
+      <Box sx={{ display: 'flex', justifyContent: 'center', margin: '2rem 0' }}>
+        <Pagination
+          count={data?.total_pages || 1}
+          page={page}
+          onChange={(_, newPage) => setPage(newPage)}
+          color="primary"
+          size="large"
+        />
+      </Box>
     </>
   );
 };
