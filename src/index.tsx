@@ -40,42 +40,42 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <SiteHeader /> 
-          <MoviesContextProvider>
-            <TvShowsContextProvider>
-              <AuthContextProvider>
-                <Routes>
-                  <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
-                  <Route path="/movies/popular" element={<PopularMoviesPage />} />
-                  <Route path="/movies/favourites" element={
-                    <ProtectedRoute>
-                      <FavouriteMoviesPage />
-                    </ProtectedRoute>} 
-                  />
-                  <Route path="/movies/:id" element={<MoviePage />} />
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="*" element={<Navigate to="/" />} />
-                  <Route path="/reviews/:id" element={<MovieReviewPage/>} />
-                  <Route path="/reviews/form" element={<AddMovieReviewPage />} />
-                  <Route path="/tv" element={<TvShowsPage/>} />
-                  <Route path="/tv/favourites" element={
-                    <ProtectedRoute>
-                      <FavouriteTvShowsPage />
-                    </ProtectedRoute>} 
-                  />
-                  <Route path="/tv/:id" element={<TvShowPage />} />
-                  <Route path="/tv/reviews/:id" element={<TvShowReviewPage />} />
-                  <Route path="/tv/reviews/form" element={<AddTvShowReviewPage />} />
-                  <Route path="/fantasy" element={
-                    <ProtectedRoute>
-                      <MyFantasyMoviesPage />
-                    </ProtectedRoute>} 
-                  />
-                  <Route path="/login" element={<LoginPage />} />
-                </Routes>
-              </AuthContextProvider>
-            </TvShowsContextProvider>
-          </MoviesContextProvider>
+        <AuthContextProvider>
+          <SiteHeader /> 
+            <MoviesContextProvider>
+              <TvShowsContextProvider>
+                  <Routes>
+                    <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
+                    <Route path="/movies/popular" element={<PopularMoviesPage />} />
+                    <Route path="/movies/favourites" element={
+                      <ProtectedRoute>
+                        <FavouriteMoviesPage />
+                      </ProtectedRoute>} 
+                    />
+                    <Route path="/movies/:id" element={<MoviePage />} />
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="*" element={<Navigate to="/" />} />
+                    <Route path="/reviews/:id" element={<MovieReviewPage/>} />
+                    <Route path="/reviews/form" element={<AddMovieReviewPage />} />
+                    <Route path="/tv" element={<TvShowsPage/>} />
+                    <Route path="/tv/favourites" element={
+                      <ProtectedRoute>
+                        <FavouriteTvShowsPage />
+                      </ProtectedRoute>} 
+                    />
+                    <Route path="/tv/:id" element={<TvShowPage />} />
+                    <Route path="/tv/reviews/:id" element={<TvShowReviewPage />} />
+                    <Route path="/tv/reviews/form" element={<AddTvShowReviewPage />} />
+                    <Route path="/fantasy" element={
+                      <ProtectedRoute>
+                        <MyFantasyMoviesPage />
+                      </ProtectedRoute>} 
+                    />
+                    <Route path="/login" element={<LoginPage />} />
+                  </Routes>
+              </TvShowsContextProvider>
+            </MoviesContextProvider>
+        </AuthContextProvider>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

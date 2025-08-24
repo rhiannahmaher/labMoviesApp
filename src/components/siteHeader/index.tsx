@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent } from "react";
+import React, { useState, MouseEvent, useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -11,6 +11,7 @@ import Menu from "@mui/material/Menu";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { AuthContext } from "../../contexts/authContext";
 
 const styles = {
   title: {
@@ -21,6 +22,7 @@ const styles = {
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
 const SiteHeader: React.FC = () => {
+  const auth = useContext(AuthContext);
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement|null>(null);
   const open = Boolean(anchorEl);
@@ -33,9 +35,7 @@ const SiteHeader: React.FC = () => {
     { label: "Upcoming", path: "/movies/upcoming" },
     { label: "Favorites", path: "/movies/favourites" },
     { label: "TV Shows", path: "/tv" },
-    { label: "Favourites", path: "/tv/favourites" },
-    { label: "My Fantasy Movies", path: "/fantasy" },
-    { label: "Login", path: "/login"}
+    { label: "Favourites", path: "/tv/favourites" }
   ];
 
   const handleMenuSelect = (pageURL: string) => {
@@ -91,6 +91,11 @@ const SiteHeader: React.FC = () => {
                     {opt.label}
                   </MenuItem>
                 ))}
+                {!auth?.isAuthenticated ? (
+                  <MenuItem onClick={() => handleMenuSelect("/login")}>Login</MenuItem>
+                ) : (
+                  <MenuItem onClick={auth.signout}>Logout</MenuItem>
+                )}
               </Menu>
             </>
           ) : (
@@ -104,6 +109,11 @@ const SiteHeader: React.FC = () => {
                   {opt.label}
                 </Button>
               ))}
+              {!auth?.isAuthenticated ? (
+                <Button color="inherit" onClick={() => navigate("/login")}>Login</Button>
+              ) : (
+                <Button color="inherit" onClick={auth.signout}>Logout</Button>
+              )}
             </>
           )}
         </Toolbar>

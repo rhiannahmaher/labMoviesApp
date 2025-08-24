@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 interface AuthContextInterface {
   token: string | null;
   authenticate: (username: string, password: string) => Promise<void>;
+  isAuthenticated: boolean;
   signout: () => void;
 }
 
@@ -11,6 +12,7 @@ export const AuthContext = createContext<AuthContextInterface | null>(null);
 
 const AuthContextProvider:React.FC<React.PropsWithChildren> = (props) => {
   const [token, setToken] = useState<string|null>(null);
+  const isAuthenticated = !!token;
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -29,7 +31,8 @@ const AuthContextProvider:React.FC<React.PropsWithChildren> = (props) => {
   };
 
   const signout = () => {
-
+    setToken(null);
+    navigate("/login");
   };
 
   return (
@@ -37,6 +40,7 @@ const AuthContextProvider:React.FC<React.PropsWithChildren> = (props) => {
       value={{
         token, 
         authenticate,
+        isAuthenticated,
         signout
       }}
     >
