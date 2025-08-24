@@ -10,11 +10,11 @@ const styles = {
   }
 };
 
-const TvShowListPageTemplate: React.FC<TvShowListPageTemplateProps> = ({ shows, title, action, backTarget })=> {
+const TvShowListPageTemplate: React.FC<TvShowListPageTemplateProps> = ({ shows, title, action, backTarget, forwardTarget })=> {
   return (
     <Grid container sx={styles.root}>
       <Grid item xs={12}>
-        <Header title={title} backTarget={backTarget} />
+        <Header title={title} backTarget={backTarget} forwardTarget={forwardTarget} />
       </Grid>
       <Grid item container spacing={5}>
         <TvShowList action={action} shows={shows}></TvShowList>

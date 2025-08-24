@@ -80,6 +80,7 @@ const FavouriteTvShowsPage: React.FC = () => {
           );
         }}
         backTarget="/tv"
+        forwardTarget="/fantasy"
       />
       <TvShowFilterUI
         onFilterValuesChange={changeFilterValues}

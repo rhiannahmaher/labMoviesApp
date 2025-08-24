@@ -66,6 +66,7 @@ const TvShowsPage: React.FC = () => {
           return <AddToTvShowFavouritesIcon {...show} />
         }}      
         backTarget="/movies/favourites"
+        forwardTarget="/tv/favourites"
       />
       <TvShowFilterUI
         onFilterValuesChange={changeFilterValues}
