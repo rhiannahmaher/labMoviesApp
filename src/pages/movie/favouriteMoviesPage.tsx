@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
 import PageTemplate from "../../components/movie/templateMovieListPage";
 import { MoviesContext } from "../../contexts/moviesContext";
 import { useQueries } from "react-query";
@@ -33,6 +33,9 @@ const FavouriteMoviesPage: React.FC = () => {
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [titleFiltering, genreFiltering]
   );
+  const [yearFilter, setYearFilter] = useState("");
+  const [minRatingFilter, setMinRatingFilter] = useState("");
+  
   const { sortOption, setSortOption, sortFunction } = useSorting("none");
 
   const favouriteMovieQueries = useQueries(
@@ -56,18 +59,40 @@ const FavouriteMoviesPage: React.FC = () => {
     : [];
 
   const changeFilterValues = (type: string, value: string) => {
-    const changedFilter = { name: type, value: value };
+    if (type === "title" || type === "genre") {
+    const changedFilter = { name: type, value };
     const updatedFilterSet =
       type === "title" ? [changedFilter, filterValues[1]] : [filterValues[0], changedFilter];
     setFilterValues(updatedFilterSet);
-  };
+  } else if (type === "year") {
+    setYearFilter(value);
+  } else if (type === "minRating") {
+    setMinRatingFilter(value);
+  }
+};
 
   const changeSortOption = (type: "sort", value: SortOption) => {
     if (type === "sort") setSortOption(value);
   };
 
-  const sortedMovies = sortFunction(displayedMovies);
+  let filteredMovies = allFavourites ? filterFunction(allFavourites) : [];
 
+  if (yearFilter) {
+    filteredMovies = filteredMovies.filter(movie =>
+      movie.release_date && movie.release_date.startsWith(yearFilter)
+    );
+  }
+
+  if (minRatingFilter) {
+    const rating = parseFloat(minRatingFilter);
+    if (!isNaN(rating)) {
+      filteredMovies = filteredMovies.filter(movie =>
+        movie.vote_average >= rating
+      );
+    }
+  }
+
+  const sortedMovies = sortFunction(filteredMovies);
   return (
     <>
       <PageTemplate
