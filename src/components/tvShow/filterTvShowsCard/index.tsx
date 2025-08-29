@@ -36,7 +36,7 @@ interface FilterTvShowsCardProps {
 }
 
 
-const FilterTvShowsCard: React.FC<FilterTvShowsCardProps> = ({ titleFilter, genreFilter, yearFilter, minRatingFilter,  onUserInput }) => {
+const FilterTvShowsCard: React.FC<FilterTvShowsCardProps> = ({ titleFilter, genreFilter, yearFilter, minRatingFilter, onUserInput }) => {
   const { data, error, isLoading, isError } = useQuery<GenreData, Error>("genres", getGenres);
 
   if (isLoading) {

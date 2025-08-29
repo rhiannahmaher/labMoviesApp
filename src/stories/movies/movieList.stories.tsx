@@ -1,11 +1,11 @@
 
 import type { Meta } from '@storybook/react';
-import MovieList from "../components/movie/movieList";
+import MovieList from "../../components/movie/movieList";
 import SampleMovie from "./sampleData";
 import { MemoryRouter } from "react-router";
-import AddToFavouritesIcon from "../components/cardIcons/movie/addToFavourites";
+import AddToFavouritesIcon from "../../components/cardIcons/movie/addToFavourites";
 import Grid from "@mui/material/Grid";
-import MoviesContextProvider from "../contexts/moviesContext";
+import MoviesContextProvider from "../../contexts/moviesContext";
 
 const meta = {
   title: "Home Page/MovieList",

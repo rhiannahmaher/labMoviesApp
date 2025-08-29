@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import MovieDetails from "../components/movie/movieDetails";
+import MovieDetails from "../../components/movie/movieDetails";
 import SampleMovie from "./sampleData";
 import { MemoryRouter } from "react-router";
-import MoviesContextProvider from "../contexts/moviesContext";
+import MoviesContextProvider from "../../contexts/moviesContext";
 
 const meta = {
   title: "Movie Details Page/MovieDetails",
