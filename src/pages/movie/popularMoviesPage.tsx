@@ -4,7 +4,7 @@ import { getPopularMovies } from "../../api/tmdb-api";
 import useFiltering from "../../hooks/useFiltering";
 import MovieFilterUI, {
   titleFilter,
-  genreFilter,
+  genreFilter
 } from "../../components/movie/movieFilterUI";
 import { BaseMovieProps, DiscoverMovies, SortOption } from "../../types/interfaces";
 import { useQuery } from "react-query";
@@ -33,6 +33,9 @@ const HomePage: React.FC = () => {
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [titleFiltering, genreFiltering]
   );
+  const [yearFilter, setYearFilter] = useState("");
+  const [minRatingFilter, setMinRatingFilter] = useState("");
+
   const { sortOption, setSortOption, sortFunction } = useSorting("none");
 
   if (isLoading) {
@@ -44,12 +47,18 @@ const HomePage: React.FC = () => {
   }
 
   const changeFilterValues = (type: string, value: string) => {
-    const changedFilter = { name: type, value: value };
-    const updatedFilterSet =
-      type === "title"
-        ? [changedFilter, filterValues[1]]
-        : [filterValues[0], changedFilter];
-    setFilterValues(updatedFilterSet);
+    if (type === "title" || type === "genre") {
+      const changedFilter = { name: type, value };
+      const updatedFilterSet =
+        type === "title"
+          ? [changedFilter, filterValues[1]]
+          : [filterValues[0], changedFilter];
+      setFilterValues(updatedFilterSet);
+    } else if (type === "year") {
+      setYearFilter(value);
+    } else if (type === "minRating") {
+      setMinRatingFilter(value);
+    }
   };
 
   const changeSortOption = (type: "sort", value: SortOption) => {
@@ -57,9 +66,23 @@ const HomePage: React.FC = () => {
   };
 
   const movies = data ? data.results : [];
-  const displayedMovies = filterFunction(movies);
-  const sortedMovies = sortFunction(displayedMovies);
+  let filteredMovies = filterFunction(movies);
 
+  if (yearFilter) {
+    filteredMovies = filteredMovies.filter(movie =>
+      movie.release_date && movie.release_date.startsWith(yearFilter)
+    );
+  }
+
+  if (minRatingFilter) {
+    const rating = parseFloat(minRatingFilter);
+    if (!isNaN(rating)) {
+      filteredMovies = filteredMovies.filter(movie =>
+        movie.vote_average >= rating
+      );
+    }
+  }
+  const sortedMovies = sortFunction(filteredMovies);
   return (
     <>
       <PageTemplate
@@ -75,6 +98,8 @@ const HomePage: React.FC = () => {
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
+        yearFilter={yearFilter}
+        minRatingFilter={minRatingFilter}
       />
       {isPremium && (
         <MovieSortUI

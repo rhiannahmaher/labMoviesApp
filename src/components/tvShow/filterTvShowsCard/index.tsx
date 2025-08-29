@@ -31,10 +31,12 @@ const styles = {
 interface FilterTvShowsCardProps {
   titleFilter: string;
   genreFilter: string;
+  yearFilter: string;
+  minRatingFilter: string;
 }
 
 
-const FilterTvShowsCard: React.FC<FilterTvShowsCardProps> = ({ titleFilter, genreFilter, onUserInput }) => {
+const FilterTvShowsCard: React.FC<FilterTvShowsCardProps> = ({ titleFilter, genreFilter, yearFilter, minRatingFilter,  onUserInput }) => {
   const { data, error, isLoading, isError } = useQuery<GenreData, Error>("genres", getGenres);
 
   if (isLoading) {
@@ -101,8 +103,25 @@ const FilterTvShowsCard: React.FC<FilterTvShowsCardProps> = ({ titleFilter, genr
         <CardContent>
           <Typography variant="h5" component="h1">
             <SortIcon fontSize="large" />
-            Sort the tv shows.
+            Advanced Filter
           </Typography>
+          <TextField
+            label="Release Year"
+            type="number"
+            value={yearFilter}
+            onChange={e => onUserInput("year", e.target.value)}
+            variant="filled"
+            sx={{ my: 1 }}
+          />
+          <TextField
+            label="Min Rating"
+            type="number"
+            value={minRatingFilter}
+            onChange={e => onUserInput("minRating", e.target.value)}
+            inputProps={{ min: 0, max: 10, step: 0.1 }}
+            variant="filled"
+            sx={{ my: 1 }}
+          />
         </CardContent>
       </Card>
     </>

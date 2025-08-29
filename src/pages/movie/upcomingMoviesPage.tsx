@@ -35,6 +35,9 @@ const UpcomingMoviesPage: React.FC = () => {
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [titleFiltering, genreFiltering]
   );
+  const [yearFilter, setYearFilter] = useState("");
+  const [minRatingFilter, setMinRatingFilter] = useState("");
+
   const { sortOption, setSortOption, sortFunction } = useSorting("none");
 
   if (isLoading) {
@@ -46,12 +49,18 @@ const UpcomingMoviesPage: React.FC = () => {
   }
 
   const changeFilterValues = (type: string, value: string) => {
-    const changedFilter = { name: type, value: value };
-    const updatedFilterSet =
-      type === "title"
-        ? [changedFilter, filterValues[1]]
-        : [filterValues[0], changedFilter];
-    setFilterValues(updatedFilterSet);
+    if (type === "title" || type === "genre") {
+      const changedFilter = { name: type, value };
+      const updatedFilterSet =
+        type === "title"
+          ? [changedFilter, filterValues[1]]
+          : [filterValues[0], changedFilter];
+      setFilterValues(updatedFilterSet);
+    } else if (type === "year") {
+      setYearFilter(value);
+    } else if (type === "minRating") {
+      setMinRatingFilter(value);
+    }
   };
 
   const changeSortOption = (type: "sort", value: SortOption) => {
@@ -59,9 +68,23 @@ const UpcomingMoviesPage: React.FC = () => {
   };
 
   const movies = data ? data.results : [];
-  const displayedMovies = filterFunction(movies);
-  const sortedMovies = sortFunction(displayedMovies);
+  let filteredMovies = filterFunction(movies);
 
+  if (yearFilter) {
+    filteredMovies = filteredMovies.filter(movie =>
+      movie.release_date && movie.release_date.startsWith(yearFilter)
+    );
+  }
+
+  if (minRatingFilter) {
+    const rating = parseFloat(minRatingFilter);
+    if (!isNaN(rating)) {
+      filteredMovies = filteredMovies.filter(movie =>
+        movie.vote_average >= rating
+      );
+    }
+  }
+  const sortedMovies = sortFunction(filteredMovies);
   return (
     <>
       <PageTemplate

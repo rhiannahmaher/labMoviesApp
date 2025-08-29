@@ -30,10 +30,11 @@ interface TvShowFilterUIProps {
   onFilterValuesChange: (f: string, s: string) => void;
   titleFilter: string;
   genreFilter: string;
+  yearFilter: string;
+  minRatingFilter: string;
 }
 
-
-const TvShowFilterUI: React.FC<TvShowFilterUIProps> = ({ onFilterValuesChange, titleFilter, genreFilter }) => {
+const TvShowFilterUI: React.FC<TvShowFilterUIProps> = ({ onFilterValuesChange, titleFilter, genreFilter, yearFilter, minRatingFilter }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   return (
     <>
@@ -54,6 +55,8 @@ const TvShowFilterUI: React.FC<TvShowFilterUIProps> = ({ onFilterValuesChange, t
           onUserInput={onFilterValuesChange}
           titleFilter={titleFilter}
           genreFilter={genreFilter}
+          yearFilter={yearFilter}
+          minRatingFilter={minRatingFilter}
         />
       </Drawer>
     </>

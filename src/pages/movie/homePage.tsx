@@ -4,7 +4,7 @@ import { getMovies } from "../../api/tmdb-api";
 import useFiltering from "../../hooks/useFiltering";
 import MovieFilterUI, {
   titleFilter,
-  genreFilter,
+  genreFilter
 } from "../../components/movie/movieFilterUI";
 import { BaseMovieProps, DiscoverMovies, SortOption } from "../../types/interfaces";
 import { useQuery } from "react-query";
