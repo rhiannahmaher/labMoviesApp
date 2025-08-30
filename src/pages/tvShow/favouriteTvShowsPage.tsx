@@ -74,7 +74,7 @@ const FavouriteTvShowsPage: React.FC = () => {
 let filteredShows = allFavourites ? filterFunction(allFavourites) : [];
 
 if (yearFilter) {
-  filteredShows = filteredShows.filter(show =>
+  filteredShows = filteredShows.filter((show: { first_air_date: string; }) =>
     show.first_air_date && show.first_air_date.startsWith(yearFilter)
   );
 }
@@ -82,7 +82,7 @@ if (yearFilter) {
 if (minRatingFilter) {
   const rating = parseFloat(minRatingFilter);
   if (!isNaN(rating)) {
-    filteredShows = filteredShows.filter(show =>
+    filteredShows = filteredShows.filter((show: { vote_average: number; }) =>
       show.vote_average >= rating
     );
   }

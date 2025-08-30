@@ -71,7 +71,7 @@ const UpcomingMoviesPage: React.FC = () => {
   let filteredMovies = filterFunction(movies);
 
   if (yearFilter) {
-    filteredMovies = filteredMovies.filter(movie =>
+    filteredMovies = filteredMovies.filter((movie: { release_date: string; }) =>
       movie.release_date && movie.release_date.startsWith(yearFilter)
     );
   }
@@ -79,7 +79,7 @@ const UpcomingMoviesPage: React.FC = () => {
   if (minRatingFilter) {
     const rating = parseFloat(minRatingFilter);
     if (!isNaN(rating)) {
-      filteredMovies = filteredMovies.filter(movie =>
+      filteredMovies = filteredMovies.filter((movie: { vote_average: number; }) =>
         movie.vote_average >= rating
       );
     }
@@ -100,7 +100,9 @@ const UpcomingMoviesPage: React.FC = () => {
       <MovieFilterUI
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
-        genreFilter={filterValues[1].value}
+        genreFilter={filterValues[1].value} 
+        yearFilter={""} 
+        minRatingFilter={""}      
       />
       {isPremium && (
         <MovieSortUI

@@ -70,7 +70,7 @@ const TvShowsPage: React.FC = () => {
   let filteredTvShows = filterFunction(shows);
 
   if (yearFilter) {
-    filteredTvShows = filteredTvShows.filter(show =>
+    filteredTvShows = filteredTvShows.filter((show: { first_air_date: string; }) =>
       show.first_air_date && show.first_air_date.startsWith(yearFilter)
     );
   }
@@ -78,7 +78,7 @@ const TvShowsPage: React.FC = () => {
   if (minRatingFilter) {
     const rating = parseFloat(minRatingFilter);
     if (!isNaN(rating)) {
-      filteredTvShows = filteredTvShows.filter(show =>
+      filteredTvShows = filteredTvShows.filter((show: { vote_average: number; }) =>
         show.vote_average >= rating
       );
     }

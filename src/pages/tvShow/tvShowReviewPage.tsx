@@ -7,7 +7,7 @@ const TvShowReviewPage: React.FC = () => {
   const { state : {show, review } } = useLocation()
   return (
     <PageTemplate show={show}>
-      <TvShowReview {...review} /> {/* Child prop */}
+      <TvShowReview {...review} />
     </PageTemplate>
   );
 };
