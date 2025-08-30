@@ -12,22 +12,24 @@ import { Box } from "@mui/material";
 
 const styles = {
   root: {
-    maxWidth: 345,
+    maxWidth: 345
   },
-  filterCard: {
+  sortCard: {
     backgroundColor: "#222",
     padding: 2,
     borderRadius: 2,
     boxShadow: 3,
-    marginTop: 2,
+    marginTop: 2
   },
-  filterTitle: {
+  sortTitle: {
     display: "flex",
     alignItems: "center",
     mb: 2,
+    justifyContent: "flex-start",
+    width: "100%"
   },
-  filterField: {
-    my: 1,
+  sortField: {
+    my: 1
   },
   formControl: {
     margin: 1,
@@ -47,13 +49,13 @@ const SortMoviesCard: React.FC<SortMoviesCardProps> = ({ sortOption, onUserInput
   };
 
   return (
-    <Card sx={styles.filterCard} variant="outlined">
+    <Card sx={styles.sortCard} variant="outlined">
       <CardContent>
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2, alignItems: "center" }}>
-          <Typography variant="h5" component="h1" sx={styles.filterTitle}>
+          <Typography variant="h5" component="h1" sx={styles.sortTitle}>
             <SortIcon fontSize="large" sx={{ mr: 1 }}/> Sort
           </Typography>
-          <FormControl variant="filled" sx={{ ...styles.formControl, ...styles.filterField }}>
+          <FormControl variant="filled" sx={{ ...styles.formControl, ...styles.sortField }}>
             <InputLabel id="sort-label" shrink>Sort By</InputLabel>
             <Select
               labelId="sort-label"

@@ -3,6 +3,7 @@ import FilterCard from "../filterTvShowsCard";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import { BaseTvShowProps } from "../../../types/interfaces";
+import { Box } from "@mui/material";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const titleFilter = (show: BaseTvShowProps, value: string): boolean => {
@@ -53,13 +54,15 @@ const TvShowFilterUI: React.FC<TvShowFilterUIProps> = ({ onFilterValuesChange, t
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
       >
-        <FilterCard
-          onUserInput={onFilterValuesChange}
-          titleFilter={titleFilter}
-          genreFilter={genreFilter}
-          yearFilter={yearFilter}
-          minRatingFilter={minRatingFilter}
-        />
+        <Box sx={{ width: 300, padding: 2 }}>
+          <FilterCard
+            onUserInput={onFilterValuesChange}
+            titleFilter={titleFilter}
+            genreFilter={genreFilter}
+            yearFilter={yearFilter}
+            minRatingFilter={minRatingFilter}
+          />
+        </Box>
       </Drawer>
     </>
   );
