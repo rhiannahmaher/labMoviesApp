@@ -3,6 +3,7 @@ import FilterCard from "../filterMoviesCard";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import { BaseMovieProps } from "../../../types/interfaces";
+import { Box } from "@mui/material";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const titleFilter = (movie: BaseMovieProps, value: string): boolean => {
@@ -54,13 +55,15 @@ const MovieFilterUI: React.FC<MovieFilterUIProps> = ({ onFilterValuesChange, tit
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
       >
-        <FilterCard
-          onUserInput={onFilterValuesChange}
-          titleFilter={titleFilter}
-          genreFilter={genreFilter}
-          yearFilter={yearFilter}
-          minRatingFilter={minRatingFilter}
-        />
+        <Box sx={{ width: 300, padding: 2 }}>
+          <FilterCard
+            onUserInput={onFilterValuesChange}
+            titleFilter={titleFilter}
+            genreFilter={genreFilter}
+            yearFilter={yearFilter}
+            minRatingFilter={minRatingFilter}
+          />
+        </Box>
       </Drawer>
     </>
   );

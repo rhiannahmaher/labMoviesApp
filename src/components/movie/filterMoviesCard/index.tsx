@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
 import { FilterOption, GenreData } from "../../../types/interfaces";
-import { SelectChangeEvent } from "@mui/material";
+import { Box, SelectChangeEvent } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -19,12 +19,25 @@ const styles = {
   root: {
     maxWidth: 345,
   },
-  media: { height: 300 },
- 
+  filterCard: {
+    backgroundColor: "#222",
+    padding: 2,
+    borderRadius: 2,
+    boxShadow: 3,
+    marginTop: 2,
+  },
+  filterTitle: {
+    display: "flex",
+    alignItems: "center",
+    mb: 2,
+  },
+  filterField: {
+    my: 1,
+  },
   formControl: {
     margin: 1,
     minWidth: 220,
-    backgroundColor: "rgb(255, 255, 255)"
+    backgroundColor: "#222"
   }
 };
 
@@ -65,63 +78,67 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = ({ titleFilter, genreF
 
   return (
     <>
-      <Card sx={styles.root} variant="outlined">
+      <Card sx={styles.filterCard} variant="outlined">
         <CardContent>
-          <Typography variant="h5" component="h1">
-            <FilterAltIcon fontSize="large" />
-            Filter the movies.
+          <Typography variant="h5" component="h1" sx={styles.filterTitle}>
+            <FilterAltIcon fontSize="large" sx={{ mr: 1 }} />
+            Filter
           </Typography>
-          <TextField
-            sx={styles.formControl}
-            id="filled-search"
-            label="Search field"
-            type="search"
-            value={titleFilter}
-            variant="filled"
-            onChange={handleTextChange}
-          />
-          <FormControl sx={styles.formControl}>
-            <InputLabel id="genre-label">Genre</InputLabel>
-            <Select
-              labelId="genre-label"
-              id="genre-select"
-              value={genreFilter}
-              onChange={handleGenreChange}
-            >
-              {genres.map((genre) => {
-                return (
-                  <MenuItem key={genre.id} value={genre.id}>
-                    {genre.name}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 2, alignItems: "center" }}>
+            <TextField
+              sx={styles.filterField}
+              id="filled-search"
+              label="Search field"
+              type="search"
+              value={titleFilter}
+              variant="filled"
+              onChange={handleTextChange}
+            />
+            <FormControl variant="filled" sx={{ ...styles.formControl, ...styles.filterField }}>
+              <InputLabel id="genre-label" shrink>Genre</InputLabel>
+              <Select
+                labelId="genre-label"
+                id="genre-select"
+                value={genreFilter}
+                onChange={handleGenreChange}
+              >
+                {genres.map((genre) => {
+                  return (
+                    <MenuItem key={genre.id} value={genre.id}>
+                      {genre.name}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </Box>
         </CardContent>
       </Card>
-      <Card sx={styles.root} variant="outlined">
+      <Card sx={styles.filterCard} variant="outlined">
         <CardContent>
-          <Typography variant="h5" component="h1">
-            <SortIcon fontSize="large" />
-            Advanced Filter
-          </Typography>
-          <TextField
-            label="Release Year"
-            type="number"
-            value={yearFilter}
-            onChange={e => onUserInput("year", e.target.value)}
-            variant="filled"
-            sx={{ my: 1 }}
-          />
-          <TextField
-            label="Min Rating"
-            type="number"
-            value={minRatingFilter}
-            onChange={e => onUserInput("minRating", e.target.value)}
-            inputProps={{ min: 0, max: 10, step: 0.1 }}
-            variant="filled"
-            sx={{ my: 1 }}
-          />
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 2,  }}>
+            <Typography variant="h5" component="h1" sx={styles.filterTitle}>
+              <SortIcon fontSize="large" sx={{ mr: 1 }} />
+              Advanced Filter
+            </Typography>
+            <TextField
+              label="Release Year"
+              type="number"
+              value={yearFilter}
+              onChange={e => onUserInput("year", e.target.value)}
+              variant="filled"
+              sx={styles.filterField}
+            />
+            <TextField
+              label="Min Rating"
+              type="number"
+              value={minRatingFilter}
+              onChange={e => onUserInput("minRating", e.target.value)}
+              inputProps={{ min: 0, max: 10, step: 0.1 }}
+              variant="filled"
+              sx={styles.filterField}
+            />
+          </Box>
         </CardContent>
       </Card>
     </>
