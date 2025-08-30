@@ -31,8 +31,14 @@ export interface MovieDetailsProps extends BaseMovieProps { // Inherits info fro
     name: string;
   }[];
   production_countries: {
-    iso_3166_1: string; // From sampleData.ts
+    iso_3166_1: string;
     name: string;
+  }[];
+  production_companies: {
+    id: number;
+    name: string;
+    logo_path?: string;
+    origin_country?: string;
   }[];
 }
 

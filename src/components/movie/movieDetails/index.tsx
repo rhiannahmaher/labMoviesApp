@@ -62,6 +62,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = (movie) => {
           </li>
         ))}
       </Paper>
+
       <Paper component="ul" sx={styles.chipSet}>
         <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
         <Chip
@@ -74,6 +75,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = (movie) => {
         />
         <Chip label={`Released: ${movie.release_date}`} />
       </Paper>
+
       <Paper component="ul" sx={styles.chipSet}>
         <li>
           <Chip label="Top Cast" sx={styles.chipLabel} color="primary" />
@@ -95,6 +97,57 @@ const MovieDetails: React.FC<MovieDetailsProps> = (movie) => {
           </Link>
         </li>
       </Paper>
+
+      <Paper component="ul" sx={styles.chipSet}>
+        <li>
+          <Chip label="Production Companies" sx={styles.chipLabel} color="primary" />
+        </li>
+        {movie.production_companies.map((pc) => (
+          <li key={pc.id}>
+            <Chip label={pc.name} />
+          </li>
+        ))}
+      </Paper>
+
+      <Paper component="ul" sx={styles.chipSet}>
+        <li>
+          <Chip label="Production Countries" sx={styles.chipLabel} color="primary" />
+        </li>
+        {movie.production_countries.map((c) => (
+          <li key={c.iso_3166_1}>
+            <Chip label={c.name} />
+          </li>
+        ))}
+      </Paper>
+
+      <Paper component="ul" sx={styles.chipSet}>
+        <li>
+          <Link
+            href={`https://www.imdb.com/title/${movie.imdb_id}`}
+            target="_blank"
+            rel="noopener"
+            underline="hover"
+            sx={{ ml: 2 }}
+          >
+            IMDB
+          </Link>
+        </li>
+      </Paper>
+
+      <Paper component="ul" sx={styles.chipSet}>
+        <li>
+          <Link
+            href={`https://www.themoviedb.org/movie/${movie.id}/recommendations`}
+            target="_blank"
+            rel="noopener"
+            underline="hover"
+            sx={{ ml: 2 }}
+          >
+            Recommended Movies
+          </Link>
+        </li>
+      </Paper>
+
       <Fab
         color="secondary"
         variant="extended"
