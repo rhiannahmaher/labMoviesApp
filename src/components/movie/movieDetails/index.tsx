@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -10,6 +10,9 @@ import NavigationIcon from "@mui/icons-material/Navigation";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from '../movieReviews'
+import Link from "@mui/material/Link";
+import { getMovieCredits } from "../../../api/tmdb-api";
+import { CastMember } from "../../../types/interfaces";
 
 const styles = {
   chipSet: {
@@ -32,7 +35,14 @@ const styles = {
 };
 
 const MovieDetails: React.FC<MovieDetailsProps> = (movie) => {
-  const [drawerOpen, setDrawerOpen] = useState(false); // New
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [cast, setCast] = useState<CastMember[]>([]);
+  
+  useEffect(() => {
+    getMovieCredits(movie.id).then((data) => {
+      setCast(data.cast.slice(0, 5));
+    });
+  }, [movie.id]);
   return (
     <>
       <Typography variant="h5" component="h3">
@@ -63,6 +73,27 @@ const MovieDetails: React.FC<MovieDetailsProps> = (movie) => {
           label={`${movie.vote_average} (${movie.vote_count}`}
         />
         <Chip label={`Released: ${movie.release_date}`} />
+      </Paper>
+      <Paper component="ul" sx={styles.chipSet}>
+        <li>
+          <Chip label="Top Cast" sx={styles.chipLabel} color="primary" />
+        </li>
+        {cast.map((actor) => (
+          <li key={actor.id}>
+            <Chip label={actor.name} />
+          </li>
+        ))}
+        <li>
+          <Link
+            href={`https://www.themoviedb.org/movie/${movie.id}/cast`}
+            target="_blank"
+            rel="noopener"
+            underline="hover"
+            sx={{ ml: 2 }}
+          >
+            Full Cast & Crew
+          </Link>
+        </li>
       </Paper>
       <Fab
         color="secondary"

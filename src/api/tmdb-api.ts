@@ -94,6 +94,13 @@ export const getPopularMovies = async (page = 1) => {
   );
 };
 
+export const getMovieCredits = async (movieId: number) => {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${import.meta.env.VITE_TMDB_KEY}`
+  );
+  return response.json();
+};
+
 export const getTvShows = async (page = 1) => {
   return fetch(
     `https://api.themoviedb.org/3/discover/tv?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=${page}`

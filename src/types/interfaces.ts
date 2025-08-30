@@ -87,6 +87,12 @@ export interface Review {
   showId?: number
 }
 
+export type CastMember = {
+  id: number;
+  name: string;
+  character: string;
+}
+
 export interface BaseTvShowProps {
   name: string;
   id: number;
