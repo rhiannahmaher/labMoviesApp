@@ -10,7 +10,7 @@ import NavigationIcon from "@mui/icons-material/Navigation";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import TvShowReviews from '../tvShowReviews';
-import { getTvShowCredits } from "../../../api/tmdb-api";
+import { getTvShowCredits, getTvShowImdb } from "../../../api/tmdb-api";
 import { CastMember } from "../../../types/interfaces";
 import Link from "@mui/material/Link";
 
@@ -37,12 +37,20 @@ const styles = {
 const TvShowDetails: React.FC<TvShowDetailsProps> = (show) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [cast, setCast] = useState<CastMember[]>([]);
+  const [imdbId, setImdbId] = useState<string | null>(null);
 
   useEffect(() => {
-    getTvShowCredits(show.id).then((data) => {
-      setCast(data.cast.slice(0, 5));
+    getTvShowCredits(show.id).then(data => {
+      setCast(Array.isArray(data.cast) ? data.cast.slice(0, 5) : []);
     });
   }, [show.id]);
+
+  useEffect(() => {
+    getTvShowImdb(show.id).then((data) => {
+      setImdbId(data.imdb_id || null);
+    });
+  }, [show.id]);
+
   return (
     <>
       <Typography variant="h5" component="h3">
@@ -93,6 +101,58 @@ const TvShowDetails: React.FC<TvShowDetailsProps> = (show) => {
             sx={{ ml: 2 }}
           >
             Full Cast & Crew
+          </Link>
+        </li>
+      </Paper>
+
+      <Paper component="ul" sx={styles.chipSet}>
+        <li>
+          <Chip label="Production Companies" sx={styles.chipLabel} color="primary" />
+        </li>
+        {show.production_companies.map((pc) => (
+          <li key={pc.id}>
+            <Chip label={pc.name} />
+          </li>
+        ))}
+      </Paper>
+
+      <Paper component="ul" sx={styles.chipSet}>
+        <li>
+          <Chip label="Production Countries" sx={styles.chipLabel} color="primary" />
+        </li>
+        {show.production_countries.map((c) => (
+          <li key={c.iso_3166_1}>
+            <Chip label={c.name} />
+          </li>
+        ))}
+      </Paper>
+
+      {imdbId && (
+        <Paper component="ul" sx={styles.chipSet}>
+          <li>
+            <Link
+              href={`https://www.imdb.com/title/${imdbId}`}
+              target="_blank"
+              rel="noopener"
+              underline="hover"
+              sx={{ ml: 2 }}
+            >
+              IMDB
+            </Link>
+          </li>
+        </Paper>
+      )}
+
+      <Paper component="ul" sx={styles.chipSet}>
+        <li>
+          <Link
+            href={`https://www.themoviedb.org/tv/${show.id}/recommendations`}
+            target="_blank"
+            rel="noopener"
+            underline="hover"
+            sx={{ ml: 2 }}
+          >
+            Recommended Shows
           </Link>
         </li>
       </Paper>

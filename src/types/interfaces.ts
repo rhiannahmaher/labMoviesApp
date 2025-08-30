@@ -40,6 +40,7 @@ export interface MovieDetailsProps extends BaseMovieProps { // Inherits info fro
     logo_path?: string;
     origin_country?: string;
   }[];
+  imdb_id: string;
 }
 
 export interface MovieImage {
@@ -129,8 +130,14 @@ export interface TvShowDetailsProps extends BaseTvShowProps { // Inherits info f
     name: string;
   }[];
   production_countries: {
-    iso_3166_1: string; // From sampleData.ts
+    iso_3166_1: string;
     name: string;
+  }[];
+  production_companies: {
+    id: number;
+    name: string;
+    logo_path?: string;
+    origin_country?: string;
   }[];
 }
 
