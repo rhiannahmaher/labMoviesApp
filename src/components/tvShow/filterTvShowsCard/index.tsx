@@ -33,6 +33,7 @@ interface FilterTvShowsCardProps {
   genreFilter: string;
   yearFilter: string;
   minRatingFilter: string;
+  onUserInput: (type: string, value: string) => void;
 }
 
 

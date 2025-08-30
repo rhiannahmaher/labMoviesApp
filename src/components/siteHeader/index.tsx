@@ -114,7 +114,9 @@ const SiteHeader: React.FC = () => {
                         <MenuItem
                           key={opt.label}
                           onClick={() => {
-                            handleMenuSelect(opt.path);
+                            if (opt.path) {
+                              handleMenuSelect(opt.path);
+                            }
                             setAnchorEl(null);
                           }}
                         >
@@ -139,7 +141,11 @@ const SiteHeader: React.FC = () => {
                     key={opt.label}
                     color="inherit"
                     sx={{ mx: 1 }}
-                    onClick={() => navigate(opt.path)}
+                    onClick={() => {
+                      if (opt.path) {
+                        navigate(opt.path);
+                      }
+                    }}
                   >
                     {opt.label}
                   </Button>

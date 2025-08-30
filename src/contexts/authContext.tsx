@@ -30,7 +30,6 @@ const AuthContextProvider:React.FC<React.PropsWithChildren> = (props) => {
     setToken(token);
       const origin = location.state?.intent?.pathname || "/";
       navigate(origin);
-    setIsPremium(username === "premium");
   };
 
   const signout = () => {

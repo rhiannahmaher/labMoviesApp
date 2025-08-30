@@ -33,6 +33,7 @@ interface FilterMoviesCardProps {
   genreFilter: string;
   yearFilter: string;
   minRatingFilter: string;
+  onUserInput: (type: string, value: string) => void;
 }
 
 const FilterMoviesCard: React.FC<FilterMoviesCardProps> = ({ titleFilter, genreFilter, yearFilter, minRatingFilter, onUserInput }) => {

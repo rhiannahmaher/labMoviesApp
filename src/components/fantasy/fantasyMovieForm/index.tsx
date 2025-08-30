@@ -135,9 +135,9 @@ const FantasyMovieForm: React.FC = () => {
                 label="Genres"
                 renderValue={(selected) => (selected as string[]).join(", ")}
               >
-                {genresList.map((genre) => (
+                {genresList.map((genre: { id: number; name: string }) => (
                   <MenuItem key={genre.id} value={genre.name}>
-                    {genre.name}
+                  {genre.name}
                   </MenuItem>
                 ))}
               </Select>

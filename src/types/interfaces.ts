@@ -124,7 +124,8 @@ export interface BaseTvShowListProps {
   forwardTarget?: string;
 }
 
-export interface TvShowDetailsProps extends BaseTvShowProps { // Inherits info from BaseMovieProps
+export interface TvShowDetailsProps extends BaseTvShowProps {
+  homepage: string | undefined; // Inherits info from BaseMovieProps
   genres: {
     id: number;
     name: string;

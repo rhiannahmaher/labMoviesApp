@@ -4,10 +4,12 @@ import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import { BaseTvShowProps } from "../../../types/interfaces";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const titleFilter = (show: BaseTvShowProps, value: string): boolean => {
   return show.name.toLowerCase().search(value.toLowerCase()) !== -1;
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const genreFilter = (show: BaseTvShowProps, value: string) => {
   const genreId = Number(value);
   const genreIds = show.genre_ids;
