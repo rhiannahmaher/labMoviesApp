@@ -155,3 +155,10 @@ export const getTvShowReviews = (id: string | number) => { //movie id can be str
     }
   );
 };
+
+export const getTvShowCredits = async (tvId: number) => {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/tv/${tvId}/credits?api_key=${import.meta.env.VITE_TMDB_KEY}`
+  );
+  return response.json();
+};

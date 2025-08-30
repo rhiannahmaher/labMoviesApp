@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -10,6 +10,9 @@ import NavigationIcon from "@mui/icons-material/Navigation";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import TvShowReviews from '../tvShowReviews';
+import { getTvShowCredits } from "../../../api/tmdb-api";
+import { CastMember } from "../../../types/interfaces";
+import Link from "@mui/material/Link";
 
 const styles = {
   chipSet: {
@@ -32,7 +35,14 @@ const styles = {
 };
 
 const TvShowDetails: React.FC<TvShowDetailsProps> = (show) => {
-  const [drawerOpen, setDrawerOpen] = useState(false); // New
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [cast, setCast] = useState<CastMember[]>([]);
+
+  useEffect(() => {
+    getTvShowCredits(show.id).then((data) => {
+      setCast(data.cast.slice(0, 5));
+    });
+  }, [show.id]);
   return (
     <>
       <Typography variant="h5" component="h3">
@@ -64,6 +74,29 @@ const TvShowDetails: React.FC<TvShowDetailsProps> = (show) => {
         />
         <Chip label={`First aired: ${show.first_air_date}`} />
       </Paper>
+
+      <Paper component="ul" sx={styles.chipSet}>
+        <li>
+          <Chip label="Top Cast" sx={styles.chipLabel} color="primary" />
+        </li>
+        {cast.map((actor) => (
+          <li key={actor.id}>
+            <Chip label={actor.name} />
+          </li>
+        ))}
+        <li>
+          <Link
+            href={`https://www.themoviedb.org/tv/${show.id}/cast`}
+            target="_blank"
+            rel="noopener"
+            underline="hover"
+            sx={{ ml: 2 }}
+          >
+            Full Cast & Crew
+          </Link>
+        </li>
+      </Paper>
+
       <Fab
         color="secondary"
         variant="extended"
