@@ -28,7 +28,7 @@ const Header: React.FC<HeaderProps> = (headerProps) => {
   const forwardTarget = headerProps.forwardTarget || "/";
   const navigate = useNavigate();
   return (
-    <Paper component="div" sx={styles.root}>
+    <Paper component="div" sx={{ ...styles.root, backgroundColor: "#111" }}>
       <IconButton aria-label="go back" onClick={() => navigate(backTarget)}>
         <ArrowBackIcon color="primary" fontSize="large" />
       </IconButton>

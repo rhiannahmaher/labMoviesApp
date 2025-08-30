@@ -5,6 +5,18 @@ import Box from "@mui/material/Box";
 import SortCard from "../sortMoviesCard";
 import { SortOption } from "../../../types/interfaces";
 
+const styles = {
+  root: {
+    backgroundColor: "#bfbfbf",
+  },
+  fab: {
+    marginTop: 8,
+    position: "fixed",
+    top: 20,
+    left: 2
+  }
+};
+
 interface MovieSortUIProps {
   onSortChange: (type: "sort", value: SortOption) => void;
   sortOption: SortOption;
@@ -19,8 +31,7 @@ const MovieSortUI: React.FC<MovieSortUIProps> = ({ onSortChange, sortOption }) =
         color="primary"
         variant="extended"
         onClick={() => setDrawerOpen(true)}
-        sx={{ position: "fixed", top: 120, right: 20, zIndex: 2000 }}
-      >
+        sx={styles.fab}      >
         Sort
       </Fab>
 

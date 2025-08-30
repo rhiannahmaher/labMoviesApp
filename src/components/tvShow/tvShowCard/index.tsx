@@ -15,6 +15,7 @@ import img from '../../../images/film-poster-placeholder.png';
 import { BaseTvShowProps } from "../../../types/interfaces"; 
 import { Link } from "react-router-dom";
 import { TvShowsContext } from "../../../contexts/tvShowsContext";
+import { Box } from "@mui/material";
 
 const styles = {
   card: { maxWidth: 345 },
@@ -44,7 +45,7 @@ const TvShowCard: React.FC<TvShowCardProps> = ({show, action}) => {
           ) : null
         }
         title={
-          <Typography variant="h5" component="p">
+          <Typography variant="h5" component="p" align="center">
             {show.name}{" "}
           </Typography>
         }
@@ -58,16 +59,16 @@ const TvShowCard: React.FC<TvShowCardProps> = ({show, action}) => {
         }
       />
       <CardContent>
-        <Grid container>
-          <Grid item xs={6}>
-            <Typography variant="h6" component="p">
-              <CalendarIcon fontSize="small" />
+        <Grid container justifyContent="space-between" alignItems="center">
+          <Grid item>
+            <Typography variant="h6" component="p" sx={{ display: "flex", alignItems: "center" }}>
+              <CalendarIcon fontSize="small" sx={{ mr: 1 }} />
               {show.first_air_date}
             </Typography>
           </Grid>
-          <Grid item xs={6}>
-            <Typography variant="h6" component="p">
-              <StarRateIcon fontSize="small" />
+          <Grid item>
+            <Typography variant="h6" component="p" sx={{ display: "flex", alignItems: "center" }}>
+              <StarRateIcon fontSize="small" sx={{ mr: 1 }} />
               {"  "} {show.vote_average}{" "}
             </Typography>
           </Grid>
@@ -75,11 +76,13 @@ const TvShowCard: React.FC<TvShowCardProps> = ({show, action}) => {
       </CardContent>
       <CardActions disableSpacing>
         {action(show)}
-        <Link to={`/tv/${show.id}`}>
-          <Button variant="outlined" size="medium" color="primary">
-            More Info ...
-          </Button>
-        </Link>
+        <Box sx={{ ml: "auto" }}>
+          <Link to={`/tv/${show.id}`}>
+            <Button variant="outlined" size="medium" color="primary">
+              More Info ...
+            </Button>
+          </Link>
+        </Box>
       </CardActions>
     </Card>
   );

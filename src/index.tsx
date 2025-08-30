@@ -25,6 +25,10 @@ import LoginPage from "./pages/profile/loginPage";
 import AuthContextProvider from "./contexts/authContext";
 import ProtectedRoute from "./components/protectedRoute";
 
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import theme from "./theme";
+
 // Declaration of query client - manages cache in browser.
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -39,45 +43,48 @@ const queryClient = new QueryClient({
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <AuthContextProvider>
-          <SiteHeader /> 
-            <MoviesContextProvider>
-              <TvShowsContextProvider>
-                  <Routes>
-                    <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
-                    <Route path="/movies/popular" element={<PopularMoviesPage />} />
-                    <Route path="/movies/favourites" element={
-                      <ProtectedRoute>
-                        <FavouriteMoviesPage />
-                      </ProtectedRoute>} 
-                    />
-                    <Route path="/movies/:id" element={<MoviePage />} />
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="*" element={<Navigate to="/" />} />
-                    <Route path="/reviews/:id" element={<MovieReviewPage/>} />
-                    <Route path="/reviews/form" element={<AddMovieReviewPage />} />
-                    <Route path="/tv" element={<TvShowsPage/>} />
-                    <Route path="/tv/favourites" element={
-                      <ProtectedRoute>
-                        <FavouriteTvShowsPage />
-                      </ProtectedRoute>} 
-                    />
-                    <Route path="/tv/:id" element={<TvShowPage />} />
-                    <Route path="/tv/reviews/:id" element={<TvShowReviewPage />} />
-                    <Route path="/tv/reviews/form" element={<AddTvShowReviewPage />} />
-                    <Route path="/fantasy" element={
-                      <ProtectedRoute>
-                        <MyFantasyMoviesPage />
-                      </ProtectedRoute>} 
-                    />
-                    <Route path="/login" element={<LoginPage />} />
-                  </Routes>
-              </TvShowsContextProvider>
-            </MoviesContextProvider>
-        </AuthContextProvider>
-      </BrowserRouter>
-      <ReactQueryDevtools initialIsOpen={false} />
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+          <BrowserRouter>
+            <AuthContextProvider>
+              <SiteHeader /> 
+                <MoviesContextProvider>
+                  <TvShowsContextProvider>
+                      <Routes>
+                        <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
+                        <Route path="/movies/popular" element={<PopularMoviesPage />} />
+                        <Route path="/movies/favourites" element={
+                          <ProtectedRoute>
+                            <FavouriteMoviesPage />
+                          </ProtectedRoute>} 
+                        />
+                        <Route path="/movies/:id" element={<MoviePage />} />
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="*" element={<Navigate to="/" />} />
+                        <Route path="/reviews/:id" element={<MovieReviewPage/>} />
+                        <Route path="/reviews/form" element={<AddMovieReviewPage />} />
+                        <Route path="/tv" element={<TvShowsPage/>} />
+                        <Route path="/tv/favourites" element={
+                          <ProtectedRoute>
+                            <FavouriteTvShowsPage />
+                          </ProtectedRoute>} 
+                        />
+                        <Route path="/tv/:id" element={<TvShowPage />} />
+                        <Route path="/tv/reviews/:id" element={<TvShowReviewPage />} />
+                        <Route path="/tv/reviews/form" element={<AddTvShowReviewPage />} />
+                        <Route path="/fantasy" element={
+                          <ProtectedRoute>
+                            <MyFantasyMoviesPage />
+                          </ProtectedRoute>} 
+                        />
+                        <Route path="/login" element={<LoginPage />} />
+                      </Routes>
+                  </TvShowsContextProvider>
+                </MoviesContextProvider>
+            </AuthContextProvider>
+          </BrowserRouter>
+          <ReactQueryDevtools initialIsOpen={false} />
+      </ThemeProvider>
     </QueryClientProvider>
   );
 };

@@ -15,6 +15,7 @@ import img from '../../../images/film-poster-placeholder.png';
 import { BaseMovieProps } from "../../../types/interfaces"; 
 import { Link } from "react-router-dom";
 import { MoviesContext } from "../../../contexts/moviesContext";
+import { Box } from "@mui/material";
 
 const styles = {
   card: { maxWidth: 345 },
@@ -44,7 +45,7 @@ const MovieCard: React.FC<MovieCardProps> = ({movie, action}) => {
           ) : null
         }
         title={
-          <Typography variant="h5" component="p">
+          <Typography variant="h5" component="p" align="center">
             {movie.title}{" "}
           </Typography>
         }
@@ -58,28 +59,30 @@ const MovieCard: React.FC<MovieCardProps> = ({movie, action}) => {
         }
       />
       <CardContent>
-        <Grid container>
-          <Grid item xs={6}>
-            <Typography variant="h6" component="p">
-              <CalendarIcon fontSize="small" />
+        <Grid container justifyContent="space-between" alignItems="center">
+          <Grid item>
+            <Typography variant="h6" component="p" sx={{ display: "flex", alignItems: "center" }}>
+              <CalendarIcon fontSize="small" sx={{ mr: 1 }} />
               {movie.release_date}
             </Typography>
           </Grid>
-          <Grid item xs={6}>
-            <Typography variant="h6" component="p">
-              <StarRateIcon fontSize="small" />
-              {"  "} {movie.vote_average}{" "}
+          <Grid item>
+            <Typography variant="h6" component="p" sx={{ display: "flex", alignItems: "center" }}>
+              <StarRateIcon fontSize="small" sx={{ mr: 1 }} />
+              {movie.vote_average}
             </Typography>
           </Grid>
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
         {action(movie)}
-        <Link to={`/movies/${movie.id}`}>
-          <Button variant="outlined" size="medium" color="primary">
-            More Info ...
-          </Button>
-        </Link>
+        <Box sx={{ ml: "auto" }}>
+            <Link to={`/movies/${movie.id}`}>
+              <Button variant="outlined" size="medium" color="primary">
+                More Info ...
+              </Button>
+            </Link>
+          </Box>
       </CardActions>
     </Card>
   );
