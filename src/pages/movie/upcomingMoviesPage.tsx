@@ -101,8 +101,8 @@ const UpcomingMoviesPage: React.FC = () => {
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value} 
-        yearFilter={""} 
-        minRatingFilter={""}      
+        yearFilter={yearFilter}
+        minRatingFilter={minRatingFilter}   
       />
       {isPremium && (
         <MovieSortUI
