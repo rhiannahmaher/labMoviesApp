@@ -67,7 +67,7 @@ const SiteHeader: React.FC = () => {
       <AppBar position="fixed" elevation={0} color="primary">
         <Toolbar>
           <Typography variant="h4" sx={styles.title}>
-            TMDB Client
+            React Movies App
           </Typography>
           <Typography variant="h6" sx={styles.title}>
             All you ever wanted to know about Movies!
