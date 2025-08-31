@@ -6,12 +6,12 @@ import { FantasyMoviePageTemplateProps } from "../../../types/interfaces";
 
 const styles = {
   root: { 
-    backgroundColor: "#bfbfbf",
+    backgroundColor: "#1a1a1a",
   },
   paper: {
     padding: 2,
     margin: 2,
-    backgroundColor: "white"
+    backgroundColor: "#222"
   }
 };
 
