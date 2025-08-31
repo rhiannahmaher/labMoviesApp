@@ -115,6 +115,7 @@ export interface BaseTvShowProps {
   status: string;
   number_of_seasons: number;
   favourite?: boolean;
+  tagline: string;
 }
 
 export interface BaseTvShowListProps {

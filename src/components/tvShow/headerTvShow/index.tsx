@@ -47,13 +47,28 @@ const TvShowHeader: React.FC<TvShowDetailsProps> = (show) => {
           </Avatar>
         )} 
       </Typography>
-      
-      <Typography variant="h4" component="h3"> 
-        {show.name}{"   "}
-        <a href={show.homepage}>
-          <HomeIcon color="primary"  fontSize="large"/>
-        </a>
-      </Typography>
+
+      <div style={{
+        flex: 1,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center"
+      }}>
+        <span style={{ fontSize: "2rem", fontWeight: "bold", display: "flex", alignItems: "center", gap: 8 }}>
+          {show.name}
+          {show.homepage && (
+            <a href={show.homepage} target="_blank" rel="noopener noreferrer" style={{ marginLeft: 8 }}>
+              <HomeIcon color="primary"  fontSize="large"/>
+            </a>
+          )}
+        </span>
+
+        <div style={{ fontSize: "1.1rem", color: "#aaa", fontStyle: "italic", marginTop: 4 }}>
+          {show.tagline}
+        </div>
+      </div>
+
       <IconButton aria-label="go forward">
         <ArrowForwardIcon color="primary" fontSize="large" />
       </IconButton>
