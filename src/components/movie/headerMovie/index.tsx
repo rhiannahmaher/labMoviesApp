@@ -36,6 +36,7 @@ const MovieHeader: React.FC<MovieDetailsProps> = (movie) => {
 
   return (
     <Paper component="div" sx={styles.root}>
+      {/* Go back arrow returns to previous page in browser history */}
       <IconButton aria-label="go back" onClick={() => navigate(-1)}> 
         <ArrowBackIcon color="primary" fontSize="large" />
       </IconButton>
@@ -48,6 +49,7 @@ const MovieHeader: React.FC<MovieDetailsProps> = (movie) => {
         )} 
       </Typography>
       
+      {/* Overides <Paper> styling so text is centered */}
       <div style={{
         flex: 1,
         display: "flex",

@@ -31,6 +31,7 @@ const FantasyMovieForm: React.FC = () => {
 
   const [open, setOpen] = useState(false);
 
+  // Retrieve existing from localStorage
   useEffect(() => {
     const stored = localStorage.getItem("fantasyMovies");
     if (stored) {
@@ -45,6 +46,7 @@ const FantasyMovieForm: React.FC = () => {
 
   const handleSnackClose = () => setOpen(false);
 
+  // Adds new movie to state and localStorage
   const onSubmit: SubmitHandler<FantasyMovieFormInputs> = (data) => {
     const updatedMovies = [...fantasyMovies, data];
     setFantasyMovies((prev) => [...prev, data]);
@@ -53,6 +55,7 @@ const FantasyMovieForm: React.FC = () => {
     reset();
   };
 
+  // Deletes a movie by index from state and localStorage
   const handleDeleteMovie = (index: number) => {
     const updated = fantasyMovies.filter((_, i) => i !== index);
     setFantasyMovies(updated);
@@ -83,25 +86,43 @@ const FantasyMovieForm: React.FC = () => {
                   }}
                   elevation={4}
                 >
-                  <Typography variant="h6" sx={{ color: 'primary.main', fontWeight: 700, mb: 1 }}>{movie.title}</Typography>
+                  <Typography variant="h6" sx={{ color: 'primary.main', fontWeight: 700, mb: 1 }}>
+                    {movie.title}
+                  </Typography>
                   <Typography variant="body2" sx={{ color: 'white', wordBreak: 'break-word' }}>
-                    <span style={{ color: '#ffd600' }}>Overview:</span> {movie.overview}
+                    <span style={{ color: '#ffd600' }}>
+                      Overview: 
+                    </span> 
+                    {movie.overview}
                   </Typography>
                   <Typography variant="body2" sx={{ color: 'white' }}>
-                    <span style={{ color: '#ffd600' }}>Genres:</span> {movie.genres.join(", ")}
+                    <span style={{ color: '#ffd600' }}>
+                      Genres:
+                    </span> 
+                    {movie.genres.join(", ")}
                   </Typography>
                   <Typography variant="body2" sx={{ color: 'white' }}>
-                    <span style={{ color: '#ffd600' }}>Release Date:</span> {movie.releaseDate}
+                    <span style={{ color: '#ffd600' }}>
+                      Release Date:
+                    </span> 
+                    {movie.releaseDate}
                   </Typography>
                   <Typography variant="body2" sx={{ color: 'white' }}>
-                    <span style={{ color: '#ffd600' }}>Runtime:</span> {movie.runtime} min
+                    <span style={{ color: '#ffd600' }}>
+                      Runtime:
+                    </span> 
+                    {movie.runtime} min
                   </Typography>
                   <Typography variant="body2" sx={{ color: 'white' }}>
-                    <span style={{ color: '#ffd600' }}>Production Companies:</span> {movie.productionCompanies}
+                    <span style={{ color: '#ffd600' }}>
+                      Production Companies:
+                    </span> 
+                    {movie.productionCompanies}
                   </Typography>
+
                   <IconButton
                     aria-label="delete fantasy movie"
-                    color="error"
+                    color="error" // Theme error colour
                     onClick={() => handleDeleteMovie(idx)}
                   >
                     <DeleteIcon />

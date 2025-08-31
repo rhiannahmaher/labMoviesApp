@@ -39,6 +39,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = (movie) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [cast, setCast] = useState<CastMember[]>([]);
   
+  // Returns top 5 cast members from a movie
   useEffect(() => {
     getMovieCredits(movie.id).then((data) => {
       setCast(data.cast.slice(0, 5));

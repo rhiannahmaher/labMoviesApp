@@ -1,3 +1,0 @@
-*Areas for Improvement*
-
-1. As of Lab 4, the favourite icon is not displayed when user clicks a movie's overview page. 

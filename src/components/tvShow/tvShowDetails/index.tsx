@@ -40,12 +40,14 @@ const TvShowDetails: React.FC<TvShowDetailsProps> = (show) => {
   const [cast, setCast] = useState<CastMember[]>([]);
   const [imdbId, setImdbId] = useState<string | null>(null);
 
+  // Returns top 5 cast members from a movie
   useEffect(() => {
     getTvShowCredits(show.id).then(data => {
       setCast(Array.isArray(data.cast) ? data.cast.slice(0, 5) : []);
     });
   }, [show.id]);
 
+  // Returns IMDB id
   useEffect(() => {
     getTvShowImdb(show.id).then((data) => {
       setImdbId(data.imdb_id || null);
@@ -68,7 +70,8 @@ const TvShowDetails: React.FC<TvShowDetailsProps> = (show) => {
         </Typography>
       </Box>
 
-      <Paper component="ul" sx={{ ...styles.chipSet, mb: 2 }}>        <Chip icon={<AccessTimeIcon />} label={`${show.number_of_seasons} seasons`} />
+      <Paper component="ul" sx={{ ...styles.chipSet, mb: 2 }}>        
+        <Chip icon={<AccessTimeIcon />} label={`${show.number_of_seasons} seasons`} />
         <Chip
           icon={<MonetizationIcon />}
           label={`Status: ${show.status}`}

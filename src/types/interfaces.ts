@@ -1,3 +1,5 @@
+// Movie interfaces
+
 export interface BaseMovieProps {
   title: string;
   budget: number;
@@ -58,24 +60,8 @@ export interface MoviePageProps {
   images: MovieImage[];
 }
 
-export type FilterOption = "title" | "genre"; // Restricts filtering/filter option to either "title" or "genre". 
-
 export interface MovieListPageTemplateProps extends BaseMovieListProps {
   title: string;
-}
-
-export interface Review{
-  id: string;
-  content: string
-  author: string
-}
-
-// Interfaces for React-Query - Describe data returned from API. 
-export interface GenreData {
-  genres: {
-    id: string;
-    name: string
-  }[];
 }
 
 export interface DiscoverMovies {
@@ -94,11 +80,13 @@ export interface Review {
   showId?: number
 }
 
-export type CastMember = {
-  id: number;
-  name: string;
-  character: string;
+export interface Review{
+  id: string;
+  content: string
+  author: string
 }
+
+// Tv Show interfaces
 
 export interface BaseTvShowProps {
   name: string;
@@ -169,7 +157,7 @@ export interface DiscoverTvShows {
   results: BaseTvShowProps[];
 }
 
-export type SortOption = "none" | "title" | "date" | "rating" | "popularity";
+// Fantasy Movie interfaces
 
 export interface FantasyMoviePageTemplateProps {
   title: string;
@@ -186,4 +174,23 @@ export type FantasyMovieFormInputs = {
   runtime: number;
   productionCompanies: string;
 };
+
+// Shared interfaces
+
+export interface GenreData {
+  genres: {
+    id: string;
+    name: string
+  }[];
+}
+
+export type FilterOption = "title" | "genre"; // Restricts filtering/filter option to either "title" or "genre". 
+
+export type SortOption = "none" | "title" | "date" | "rating" | "popularity";
+
+export type CastMember = {
+  id: number;
+  name: string;
+  character: string;
+}
 

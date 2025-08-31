@@ -28,6 +28,7 @@ const genreFiltering = {
 };
 
 const FavouriteMoviesPage: React.FC = () => {
+  // Gets premium status from auth context
   const { isPremium } = useContext(AuthContext) || {};
   const { favourites: movieIds } = useContext(MoviesContext);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
@@ -55,6 +56,7 @@ const FavouriteMoviesPage: React.FC = () => {
 
   const allFavourites = favouriteMovieQueries.map((q) => q.data);
 
+  // Handler for filter value changes
   const changeFilterValues = (type: string, value: string) => {
     if (type === "title" || type === "genre") {
     const changedFilter = { name: type, value };
@@ -68,18 +70,21 @@ const FavouriteMoviesPage: React.FC = () => {
   }
 };
 
+  // Handler for sort option changes
   const changeSortOption = (type: "sort", value: SortOption) => {
     if (type === "sort") setSortOption(value);
   };
 
   let filteredMovies = allFavourites ? filterFunction(allFavourites) : [];
 
+  // Applies year filter
   if (yearFilter) {
     filteredMovies = filteredMovies.filter((movie: { release_date: string; }) =>
       movie.release_date && movie.release_date.startsWith(yearFilter)
     );
   }
 
+  // Applies minimum rating filter
   if (minRatingFilter) {
     const rating = parseFloat(minRatingFilter);
     if (!isNaN(rating)) {
@@ -89,6 +94,7 @@ const FavouriteMoviesPage: React.FC = () => {
     }
   }
 
+  // Applies sorting
   const sortedMovies = sortFunction(filteredMovies);
   return (
     <>
@@ -113,6 +119,7 @@ const FavouriteMoviesPage: React.FC = () => {
         yearFilter={yearFilter} 
         minRatingFilter={minRatingFilter}      
       />
+      {/* If logged in (premium status), show sort filter */}
       {isPremium && (
         <MovieSortUI
           onSortChange={changeSortOption}

@@ -28,7 +28,9 @@ const genreFiltering = {
 };
 
 const TvShowsPage: React.FC = () => {
+  // Sets pagination
   const [page, setPage] = useState(1);
+  // Gets premium status from auth context
   const { isPremium } = useContext(AuthContext) || {};
   const { data, error, isLoading, isError } = useQuery<DiscoverTvShows, Error>(["tv", page], () => getTvShows(page));
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
@@ -47,6 +49,7 @@ const TvShowsPage: React.FC = () => {
     return <h1>{error.message}</h1>;
   }
 
+  // Handler for filter value changes
   const changeFilterValues = (type: string, value: string) => {
     if (type === "title" || type === "genre") {
       const changedFilter = { name: type, value };
@@ -62,6 +65,7 @@ const TvShowsPage: React.FC = () => {
     }
   };
 
+  // Handler for sort option changes
   const changeSortOption = (type: "sort", value: SortOption) => {
   if (type === "sort") setSortOption(value);
   };
@@ -69,12 +73,14 @@ const TvShowsPage: React.FC = () => {
   const shows = data ? data.results : [];
   let filteredTvShows = filterFunction(shows);
 
+  // Applies year filter
   if (yearFilter) {
     filteredTvShows = filteredTvShows.filter((show: { first_air_date: string; }) =>
       show.first_air_date && show.first_air_date.startsWith(yearFilter)
     );
   }
 
+  // Applies minimum rating filter
   if (minRatingFilter) {
     const rating = parseFloat(minRatingFilter);
     if (!isNaN(rating)) {
@@ -83,6 +89,8 @@ const TvShowsPage: React.FC = () => {
       );
     }
   }
+
+  // Applies sorting
   const sortedTvShows = sortFunction(filteredTvShows);
   return (
     <>
@@ -103,6 +111,7 @@ const TvShowsPage: React.FC = () => {
         yearFilter={yearFilter}
         minRatingFilter={minRatingFilter}
       />
+      {/* If logged in (premium status), show sort filter */}
       {isPremium && (
         <TvShowSortUI
           onSortChange={changeSortOption}

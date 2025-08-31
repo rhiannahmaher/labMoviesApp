@@ -1,3 +1,8 @@
+/*
+  Defines the custom Material-UI theme for the React app.
+  It sets the color palette, background, text colors, and component overrides.
+*/
+
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({

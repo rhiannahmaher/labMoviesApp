@@ -1,3 +1,6 @@
+/*
+  This context allows any component in the app to add/remove favourites, add to must-watch, and add reviews.
+*/
 import React, { useState, useCallback } from "react";
 import { BaseMovieProps, Review } from "../types/interfaces";
 
@@ -26,6 +29,7 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({ children }) 
   const [mustWatch, setMustWatch ] = useState<number[]>([]); // useState only takes two variables (state and function). 
   const [myReviews, setMyReviews] = useState<Review[]>( [] );
 
+  // Adds a movie to favourites if not already present
   const addToFavourites = useCallback((movie: BaseMovieProps) => {
     setFavourites((prevFavourites) => {
       if (!prevFavourites.includes(movie.id)) {
@@ -35,10 +39,12 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({ children }) 
     });
   }, []);
 
+  // Remove a movie from favourites
   const removeFromFavourites = useCallback((movie: BaseMovieProps) => {
     setFavourites((prevFavourites) => prevFavourites.filter((mId) => mId !== movie.id));
   }, []);
 
+  // Add a movie to must-watch if not already present
   const addToMustWatch = useCallback((movie: BaseMovieProps) => {
     setMustWatch((prevMustWatch) => {
       if (!prevMustWatch.includes(movie.id)) {
@@ -49,7 +55,8 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({ children }) 
     });
   }, []);
 
-  const addReview = (movie:BaseMovieProps, review: Review) => {   // NEW
+  // Add a review for a movie
+  const addReview = (movie:BaseMovieProps, review: Review) => {
     setMyReviews( {...myReviews, [movie.id]: review } )
   };
 

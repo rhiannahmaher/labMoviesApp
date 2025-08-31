@@ -27,7 +27,9 @@ const genreFiltering = {
 };
 
 const HomePage: React.FC = () => {
+  // Sets pagination
   const [page, setPage] = useState(1);
+  // Gets premium status from auth context
   const { isPremium } = useContext(AuthContext) || {};
   const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(["discover", page], () => getMovies(page));
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
@@ -41,6 +43,7 @@ const HomePage: React.FC = () => {
   if (isLoading) return <Spinner />;
   if (isError) return <h1>{error.message}</h1>;
 
+  // Handler for filter value changes
   const changeFilterValues = (type: string, value: string) => {
     if (type === "title" || type === "genre") {
       const changedFilter = { name: type, value };
@@ -56,6 +59,7 @@ const HomePage: React.FC = () => {
     }
   };
 
+  // Handler for sort option changes
   const changeSortOption = (type: "sort", value: SortOption) => {
   if (type === "sort") setSortOption(value);
   };
@@ -63,12 +67,14 @@ const HomePage: React.FC = () => {
   const movies = data ? data.results : [];
   let filteredMovies = filterFunction(movies);
 
+  // Applies year filter
   if (yearFilter) {
     filteredMovies = filteredMovies.filter((movie: { release_date: string; }) =>
       movie.release_date && movie.release_date.startsWith(yearFilter)
     );
   }
 
+  // Applies minimum rating filter
   if (minRatingFilter) {
     const rating = parseFloat(minRatingFilter);
     if (!isNaN(rating)) {
@@ -77,6 +83,8 @@ const HomePage: React.FC = () => {
       );
     }
   }
+
+  // Applies sorting
   const sortedMovies = sortFunction(filteredMovies);
 
   return (
@@ -94,6 +102,7 @@ const HomePage: React.FC = () => {
         yearFilter={yearFilter}
         minRatingFilter={minRatingFilter}
       />
+      {/* If logged in (premium status), show sort filter */}
       {isPremium && (
         <MovieSortUI
           onSortChange={changeSortOption}

@@ -28,6 +28,7 @@ const genreFiltering = {
 };
 
 const FavouriteTvShowsPage: React.FC = () => {
+  // Gets premium status from auth context
   const { isPremium } = useContext(AuthContext) || {};
   const { favourites: showIds } = useContext(TvShowsContext);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
@@ -54,41 +55,45 @@ const FavouriteTvShowsPage: React.FC = () => {
   }
 
   const allFavourites = favouriteTvShowQueries.map((q) => q.data);
+  // Handler for filter value changes
   const changeFilterValues = (type: string, value: string) => {
   if (type === "title" || type === "genre") {
     const changedFilter = { name: type, value };
     const updatedFilterSet =
       type === "title" ? [changedFilter, filterValues[1]] : [filterValues[0], changedFilter];
     setFilterValues(updatedFilterSet);
-  } else if (type === "year") {
-    setYearFilter(value);
-  } else if (type === "minRating") {
-    setMinRatingFilter(value);
-  }
-};
+    } else if (type === "year") {
+      setYearFilter(value);
+    } else if (type === "minRating") {
+      setMinRatingFilter(value);
+    }
+  };
 
+  // Handler for sort option changes
   const changeSortOption = (type: "sort", value: SortOption) => {
     if (type === "sort") setSortOption(value);
   };
 
-let filteredShows = allFavourites ? filterFunction(allFavourites) : [];
+  let filteredShows = allFavourites ? filterFunction(allFavourites) : [];
 
-if (yearFilter) {
-  filteredShows = filteredShows.filter((show: { first_air_date: string; }) =>
-    show.first_air_date && show.first_air_date.startsWith(yearFilter)
-  );
-}
-
-if (minRatingFilter) {
-  const rating = parseFloat(minRatingFilter);
-  if (!isNaN(rating)) {
-    filteredShows = filteredShows.filter((show: { vote_average: number; }) =>
-      show.vote_average >= rating
+  // Applies minimum rating filter
+  if (yearFilter) {
+    filteredShows = filteredShows.filter((show: { first_air_date: string; }) =>
+      show.first_air_date && show.first_air_date.startsWith(yearFilter)
     );
   }
-}
 
-const sortedShows = sortFunction(filteredShows);
+  // Applies minimum rating filter
+  if (minRatingFilter) {
+    const rating = parseFloat(minRatingFilter);
+    if (!isNaN(rating)) {
+      filteredShows = filteredShows.filter((show: { vote_average: number; }) =>
+        show.vote_average >= rating
+      );
+    }
+  }
+  // Applies sorting
+  const sortedShows = sortFunction(filteredShows);
   return (
     <>
       <PageTemplate
@@ -112,6 +117,7 @@ const sortedShows = sortFunction(filteredShows);
         yearFilter={yearFilter}
         minRatingFilter={minRatingFilter}
       />
+      {/* If logged in (premium status), show sort filter */}
       {isPremium && (
         <TvShowSortUI
           onSortChange={changeSortOption}

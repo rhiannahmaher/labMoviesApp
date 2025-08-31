@@ -23,6 +23,7 @@ const styles = {
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
 const SiteHeader: React.FC = () => {
+  // Gets authentication context
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement|null>(null);
@@ -30,6 +31,7 @@ const SiteHeader: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
+  // Nested menu options for dropdown
   const menuOptions = [
     { label: "Home", path: "/" },
     {
@@ -151,6 +153,7 @@ const SiteHeader: React.FC = () => {
                   </Button>
                 )
               )}
+              {/* Updates login/logout view depending on if user is logged in */}
               {!auth?.isAuthenticated ? (
                 <Button color="inherit" onClick={() => navigate("/login")}>Login</Button>
               ) : (

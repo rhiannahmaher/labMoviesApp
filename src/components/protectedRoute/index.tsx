@@ -10,7 +10,6 @@ const ProtectedRoute:React.FC<React.PropsWithChildren> = (props) => {
   if (!token) {
     return <Navigate to={"/login"} replace state={{ intent: location }} />;
   }
-
   return props.children;
 };
 

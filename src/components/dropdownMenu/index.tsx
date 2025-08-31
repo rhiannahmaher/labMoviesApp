@@ -10,17 +10,21 @@ interface NavDropdownProps {
 }
 
 const NavDropdown: React.FC<NavDropdownProps> = ({ label, options }) => {
+  // Anchor element used to open/close menu
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
 
+  // Opens menu
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+  // Closes menu
   const handleClose = () => {
     setAnchorEl(null);
   };
 
+  // Navigates to route and closes the menu
   const handleMenuItemClick = (path: string) => {
     navigate(path);
     handleClose();

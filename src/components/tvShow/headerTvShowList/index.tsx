@@ -24,7 +24,8 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = (headerProps) => {
   const title = headerProps.title;
-  const backTarget = headerProps.backTarget || "/";
+  // Targets used to navigate through menu options in navigation bar
+  const backTarget = headerProps.backTarget || "/"; // Defaults home
   const forwardTarget = headerProps.forwardTarget || "/";
   const navigate = useNavigate();
   return (

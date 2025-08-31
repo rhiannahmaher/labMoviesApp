@@ -1,3 +1,9 @@
+/*
+  AuthContext provides authentication state and actions to the app.
+  It manages login, logout, and stores a simple token in memory.
+  For demo purposes, authentication is faked and always accepts "user"/"password".
+*/
+
 import { createContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -18,6 +24,7 @@ const AuthContextProvider:React.FC<React.PropsWithChildren> = (props) => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  // Fake authentication function for demo/testing
   const fakeAuth = async (username: string, password: string) => {
     if (username === "user" && password === "password") {
       return "demo-token";
@@ -25,6 +32,7 @@ const AuthContextProvider:React.FC<React.PropsWithChildren> = (props) => {
     throw new Error("Invalid credentials");
   };
 
+  // Sets token and redirects to intended page or home
   const authenticate = async (username: string, password: string) => {
     const token = await fakeAuth(username, password);
     setToken(token);
@@ -32,6 +40,7 @@ const AuthContextProvider:React.FC<React.PropsWithChildren> = (props) => {
       navigate(origin);
   };
 
+  // Clears token and redirects to login page
   const signout = () => {
     setToken(null);
     navigate("/login");

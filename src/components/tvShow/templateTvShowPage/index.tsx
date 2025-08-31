@@ -30,6 +30,7 @@ const TemplateTvShowPage: React.FC<TemplateTvShowPageProps> = ({show, children})
     <>
       <TvShowHeader {...show} />
       <Grid container spacing={5} style={{ padding: "15px" }}>
+        {/* Updated to display one poster in left of window */}
         <Grid item xs={3}>
           <div>
             {images.length > 0 && (

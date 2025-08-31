@@ -30,6 +30,7 @@ const TemplateMoviePage: React.FC<TemplateMoviePageProps> = ({movie, children}) 
     <>
       <MovieHeader {...movie} />
       <Grid container spacing={5} style={{ padding: "15px" }}>
+        {/* Updated to display one poster in left of window */}
         <Grid item xs={3}>
           <div>
             {images.length > 0 && (

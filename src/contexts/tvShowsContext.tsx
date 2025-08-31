@@ -1,3 +1,7 @@
+/*
+  This context allows any component in the app to add/remove favourites, add to must-watch, and add reviews for TV shows.
+*/
+
 import React, { useState, useCallback } from "react";
 import { BaseTvShowProps, Review } from "../types/interfaces";
 
@@ -26,6 +30,7 @@ const TvShowsContextProvider: React.FC<React.PropsWithChildren> = ({ children })
   const [mustWatch, setMustWatch ] = useState<number[]>([]); // useState only takes two variables (state and function). 
   const [myReviews, setMyReviews] = useState<Review[]>( [] );
 
+  // Add a show to favourites if not already present
   const addToFavourites = useCallback((show: BaseTvShowProps) => {
     setFavourites((prevFavourites) => {
       if (!prevFavourites.includes(show.id)) {
@@ -35,28 +40,23 @@ const TvShowsContextProvider: React.FC<React.PropsWithChildren> = ({ children })
     });
   }, []);
 
+  // Remove a show from favourites
   const removeFromFavourites = useCallback((show: BaseTvShowProps) => {
     setFavourites((prevFavourites) => prevFavourites.filter((mId) => mId !== show.id));
   }, []);
 
+  // Add a show to must-watch if not already present
   const addToMustWatch = useCallback((show: BaseTvShowProps) => {
     setMustWatch((prevMustWatch) => {
       if (!prevMustWatch.includes(show.id)) {
-                
-      // Test for checking success of feature.
-      /*
-      const updatedMustWatch = [...prevMustWatch, movie.id];
-      console.log("Added to Must Watch:", updatedMustWatch);
-      return updatedMustWatch
-      */
-
         return [...prevMustWatch, show.id];
       }
       return prevMustWatch;
     });
   }, []);
 
-  const addReview = (show:BaseTvShowProps, review: Review) => {   // NEW
+  // Add a review for a show
+  const addReview = (show:BaseTvShowProps, review: Review) => {
     setMyReviews( {...myReviews, [show.id]: review } )
   };
 

@@ -36,6 +36,7 @@ const TvShowHeader: React.FC<TvShowDetailsProps> = (show) => {
 
   return (
     <Paper component="div" sx={styles.root}>
+      {/* Go back arrow returns to previous page in browser history */}
       <IconButton aria-label="go back" onClick={() => navigate(-1)}>
         <ArrowBackIcon color="primary" fontSize="large" />
       </IconButton>

@@ -43,7 +43,8 @@ const queryClient = new QueryClient({
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
+      {/* Applies theme to React app */}
+      <ThemeProvider theme={theme}> 
         <CssBaseline />
           <BrowserRouter>
             <AuthContextProvider>

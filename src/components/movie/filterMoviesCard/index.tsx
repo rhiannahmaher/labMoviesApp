@@ -58,6 +58,7 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = ({ titleFilter, genreF
   if (isError) {
     return <h1>{(error as Error).message}</h1>;
   }
+  // Adds 'all' as first option
   const genres = data?.genres || [];
   if (genres[0].name !== "All") {
     genres.unshift({ id: "0", name: "All" });
@@ -114,6 +115,7 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = ({ titleFilter, genreF
           </Box>
         </CardContent>
       </Card>
+      {/* Advanced filter searching */}
       <Card sx={styles.filterCard} variant="outlined">
         <CardContent>
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2,  }}>
