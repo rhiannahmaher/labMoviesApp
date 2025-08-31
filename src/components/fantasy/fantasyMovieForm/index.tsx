@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { TextField, Button, MenuItem, Typography, Box, Snackbar, Alert, InputLabel, Select, FormControl, Paper } from "@mui/material";
+import { TextField, Button, MenuItem, Typography, Box, Snackbar, Alert, InputLabel, Select, FormControl, Paper, IconButton } from "@mui/material";
 import { useQuery } from "react-query";
 import { getGenres } from "../../../api/tmdb-api";
 import Spinner from '../../spinner';
 import { FantasyMovieFormInputs } from '../../../types/interfaces';
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const FantasyMovieForm: React.FC = () => {
   const [fantasyMovies, setFantasyMovies] = useState<FantasyMovieFormInputs[]>([]);
@@ -52,6 +53,12 @@ const FantasyMovieForm: React.FC = () => {
     reset();
   };
 
+  const handleDeleteMovie = (index: number) => {
+    const updated = fantasyMovies.filter((_, i) => i !== index);
+    setFantasyMovies(updated);
+    localStorage.setItem("fantasyMovies", JSON.stringify(updated));
+  };
+
   return (
     <Box component="div" sx={{ maxWidth: 500, margin: "0 auto", p: 2 }}>
       {fantasyMovies.length > 0 && (
@@ -92,6 +99,13 @@ const FantasyMovieForm: React.FC = () => {
                   <Typography variant="body2" sx={{ color: 'white' }}>
                     <span style={{ color: '#ffd600' }}>Production Companies:</span> {movie.productionCompanies}
                   </Typography>
+                  <IconButton
+                    aria-label="delete fantasy movie"
+                    color="error"
+                    onClick={() => handleDeleteMovie(idx)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
                 </Paper>
               ))}
             </Box>

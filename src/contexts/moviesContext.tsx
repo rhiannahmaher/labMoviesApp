@@ -42,13 +42,6 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({ children }) 
   const addToMustWatch = useCallback((movie: BaseMovieProps) => {
     setMustWatch((prevMustWatch) => {
       if (!prevMustWatch.includes(movie.id)) {
-                
-      // Test for checking success of feature.
-      /*
-      const updatedMustWatch = [...prevMustWatch, movie.id];
-      console.log("Added to Must Watch:", updatedMustWatch);
-      return updatedMustWatch
-      */
 
         return [...prevMustWatch, movie.id];
       }
