@@ -48,14 +48,25 @@ const MovieHeader: React.FC<MovieDetailsProps> = (movie) => {
         )} 
       </Typography>
       
-      <Typography variant="h4" component="h3"> 
-        {movie.title}{"   "}
-        <a href={movie.homepage}>
-          <HomeIcon color="primary"  fontSize="large"/>
-        </a>
-        <br />
-        <span>{`${movie.tagline}`} </span>
-      </Typography>
+      <div style={{
+        flex: 1,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center"
+      }}>
+        <span style={{ fontSize: "2rem", fontWeight: "bold", display: "flex", alignItems: "center", gap: 8 }}>
+          {movie.title}
+          {movie.homepage && (
+            <a href={movie.homepage} target="_blank" rel="noopener noreferrer" style={{ marginLeft: 8 }}>
+              <HomeIcon color="primary" fontSize="large" />
+            </a>
+          )}
+        </span>
+        <div style={{ fontSize: "1.1rem", color: "#aaa", fontStyle: "italic", marginTop: 4 }}>
+          {movie.tagline}
+        </div>
+      </div>
       <IconButton aria-label="go forward">
         <ArrowForwardIcon color="primary" fontSize="large" />
       </IconButton>

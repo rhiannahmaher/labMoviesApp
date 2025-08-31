@@ -13,6 +13,7 @@ import MovieReviews from '../movieReviews'
 import Link from "@mui/material/Link";
 import { getMovieCredits } from "../../../api/tmdb-api";
 import { CastMember } from "../../../types/interfaces";
+import { Box, Grid } from "@mui/material";
 
 const styles = {
   chipSet: {
@@ -45,25 +46,21 @@ const MovieDetails: React.FC<MovieDetailsProps> = (movie) => {
   }, [movie.id]);
   return (
     <>
-      <Typography variant="h5" component="h3">
-        Overview
-      </Typography>
-      <Typography variant="h6" component="p">
-        {movie.overview}
-      </Typography>
+      <Box sx={{ p: 2, mb: 2, backgroundColor: "#181818", borderRadius: 2 }}>
+        <Typography
+          variant="h5"
+          component="h3"
+          align="center"
+          sx={{ mb: 2, mt: 1, fontWeight: "bold", letterSpacing: 1 }}
+        >
+          Overview
+        </Typography>
+        <Typography variant="h6" component="p">
+          {movie.overview}
+        </Typography>
+      </Box>
 
-      <Paper component="ul" sx={styles.chipSet}>
-        <li>
-          <Chip label="Genres" sx={styles.chipLabel} color="primary" />
-        </li>
-        {movie.genres.map((g) => (
-          <li key={g.name}>
-            <Chip label={g.name} />
-          </li>
-        ))}
-      </Paper>
-
-      <Paper component="ul" sx={styles.chipSet}>
+      <Paper component="ul" sx={{ ...styles.chipSet, mb: 2 }}>
         <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
         <Chip
           icon={<MonetizationIcon />}
@@ -76,77 +73,103 @@ const MovieDetails: React.FC<MovieDetailsProps> = (movie) => {
         <Chip label={`Released: ${movie.release_date}`} />
       </Paper>
 
-      <Paper component="ul" sx={styles.chipSet}>
-        <li>
-          <Chip label="Top Cast" sx={styles.chipLabel} color="primary" />
-        </li>
-        {cast.map((actor) => (
-          <li key={actor.id}>
-            <Chip label={actor.name} />
-          </li>
-        ))}
-        <li>
-          <Link
-            href={`https://www.themoviedb.org/movie/${movie.id}/cast`}
-            target="_blank"
-            rel="noopener"
-            underline="hover"
-            sx={{ ml: 2 }}
-          >
-            Full Cast & Crew
-          </Link>
-        </li>
-      </Paper>
+      <Grid container spacing={2} sx={{ mb: 2 }}>
+        <Grid item xs={12} md={6}>
+          <Paper component="ul" sx={{ ...styles.chipSet, p: 2 }}>
+            <li>
+              <Chip label="Genres" sx={styles.chipLabel} color="primary" />
+            </li>
+            {movie.genres.map((g) => (
+              <li key={g.name}>
+                <Chip label={g.name} />
+              </li>
+            ))}
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Paper component="ul" sx={{ ...styles.chipSet, p: 2 }}>
+            <li>
+              <Chip label= "Cast" sx={styles.chipLabel} color="primary" />
+            </li>
+            {cast.map((actor) => (
+              <li key={actor.id}>
+                <Chip label={actor.name} />
+              </li>
+            ))}
+            <li style={{ width: "100%", display: "flex", justifyContent: "center"}}>
+              <Link
+                href={`https://www.themoviedb.org/movie/${movie.id}/cast`}
+                target="_blank"
+                rel="noopener"
+                underline="hover"
+                sx={{ ml: 2 }}
+              >
+                Full Cast & Crew
+              </Link>
+            </li>
+          </Paper>
+        </Grid>
+      </Grid>
+      
+      <Grid container spacing={2} sx={{ mb: 2 }}>
+        <Grid item xs={12} md={6}>
+          <Paper component="ul" sx={{ ...styles.chipSet, mb: 2 }}>
+            <li>
+              <Chip label="Production Companies" sx={styles.chipLabel} color="primary" />
+            </li>
+            {movie.production_companies.map((pc) => (
+              <li key={pc.id}>
+                <Chip label={pc.name} />
+              </li>
+            ))}
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Paper component="ul" sx={{ ...styles.chipSet, mb: 2 }}>
+            <li>
+              <Chip label="Production Countries" sx={styles.chipLabel} color="primary" />
+            </li>
+            {movie.production_countries.map((c) => (
+              <li key={c.iso_3166_1}>
+                <Chip label={c.name} />
+              </li>
+            ))}
+          </Paper>
+        </Grid>
+      </Grid>
 
-      <Paper component="ul" sx={styles.chipSet}>
-        <li>
-          <Chip label="Production Companies" sx={styles.chipLabel} color="primary" />
-        </li>
-        {movie.production_companies.map((pc) => (
-          <li key={pc.id}>
-            <Chip label={pc.name} />
-          </li>
-        ))}
-      </Paper>
-
-      <Paper component="ul" sx={styles.chipSet}>
-        <li>
-          <Chip label="Production Countries" sx={styles.chipLabel} color="primary" />
-        </li>
-        {movie.production_countries.map((c) => (
-          <li key={c.iso_3166_1}>
-            <Chip label={c.name} />
-          </li>
-        ))}
-      </Paper>
-
-      <Paper component="ul" sx={styles.chipSet}>
-        <li>
-          <Link
-            href={`https://www.imdb.com/title/${movie.imdb_id}`}
-            target="_blank"
-            rel="noopener"
-            underline="hover"
-            sx={{ ml: 2 }}
-          >
-            IMDB
-          </Link>
-        </li>
-      </Paper>
-
-      <Paper component="ul" sx={styles.chipSet}>
-        <li>
-          <Link
-            href={`https://www.themoviedb.org/movie/${movie.id}/recommendations`}
-            target="_blank"
-            rel="noopener"
-            underline="hover"
-            sx={{ ml: 2 }}
-          >
-            Recommended Movies
-          </Link>
-        </li>
-      </Paper>
+      <Grid container spacing={2} sx={{ mb: 2 }}>
+        <Grid item xs={12} md={6}>
+          <Paper component="ul" sx={{ ...styles.chipSet, mb: 2 }}>
+            <li>
+              <Link
+                href={`https://www.imdb.com/title/${movie.imdb_id}`}
+                target="_blank"
+                rel="noopener"
+                underline="hover"
+                sx={{ ml: 2 }}
+              >
+                IMDB
+              </Link>
+            </li>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Paper component="ul" sx={{ ...styles.chipSet, mb: 2 }}>
+            <li>
+              <Link
+                href={`https://www.themoviedb.org/movie/${movie.id}/recommendations`}
+                target="_blank"
+                rel="noopener"
+                underline="hover"
+                sx={{ ml: 2 }}
+              >
+                Recommended Movies
+              </Link>
+            </li>
+          </Paper>
+        </Grid>
+      </Grid>
 
       <Fab
         color="secondary"
